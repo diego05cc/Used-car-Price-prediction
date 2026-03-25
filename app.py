@@ -4,10 +4,10 @@ import numpy as np
 
 app = Flask(__name__)
 
-#try:
- #   model = pickle.load(open('model.pkl', 'rb'))
-#except:
- #   model = None
+try:
+    model = pickle.load(open('model.pkl', 'rb'))
+except:
+    model = None
 
 
 # HOME
@@ -21,6 +21,25 @@ def home():
 @app.route('/use-cases')
 def use_cases():
     return render_template('use_cases.html')
+
+#caso 1:
+@app.route('/use-case1')
+def use_case1():
+    return render_template('use_case1.html')
+#caso 2
+@app.route('/use-case2')
+def use_case2():
+    return render_template('use_case2.html')
+
+#caso 3
+@app.route('/use-case3')
+def use_case3():
+    return render_template('use_case3.html')
+
+#caso 4
+@app.route('/use-case4')
+def use_case4():
+    return render_template('use_case4.html')
 
 
 # LINEAR REGRESSION PAGE
