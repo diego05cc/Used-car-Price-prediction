@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Use Case 1</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- ICONOS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+
+<header>
+    <h1><i class="fas fa-car"></i> Used Car Price Prediction</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/use-cases">Use Cases</a>
+        <a href="/regression">Linear Regression</a>
+    </nav>
+</header>
+
+
+<section class="hero" style="background: url('/static/images/used_car.jpg') center/cover;">
+    <div class="overlay light-box">
+        <h2>Problem Description</h2>
+        <p>
+            Determining the price of a used car is complex due to multiple influencing factors.
+            Buyers and sellers often rely on subjective judgment, which leads to inaccurate pricing.
+            Machine Learning enables a more reliable, data-driven estimation.
+        </p>
+    </div>
+</section>
+
+<!-- CARDS -->
+<section class="features">
+
+    <div class="card">
+        <i class="fas fa-brain icon"></i>
+        <h3>Type of ML</h3>
+        <p>Supervised Learning (Regression)</p>
+    </div>
+
+    <div class="card">
+        <i class="fas fa-database icon"></i>
+        <h3>Input Data</h3>
+        <p>Year, mileage, engine size, brand, fuel type</p>
+    </div>
+
+    <div class="card">
+        <i class="fas fa-dollar-sign icon"></i>
+        <h3>Output</h3>
+        <p>Predicted car price</p>
+    </div>
+
+    <div class="card">
+        <i class="fas fa-handshake icon"></i>
+        <h3>Relevance</h3>
+        <p>Supports better decisions for buyers and sellers</p>
+    </div>
+
+</section>
+
+<footer>
+    <p>Machine Learning Academic Project</p>
+</footer>
+
+</body>
+</html>

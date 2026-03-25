@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Use Case 3</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- ICONOS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+
+<header>
+    <h1><i class="fas fa-car-side"></i> Car Classification</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/use-cases">Use Cases</a>
+        <a href="/regression">Linear Regression</a>
+    </nav>
+</header>
+
+
+<section class="hero" style="background: url('/static/images/car_classification.jpg') center/cover;">
+    <div class="overlay light-box">
+        <h2>Problem Description</h2>
+        <p>
+            Classifying vehicles into categories such as economy, standard, or luxury
+            is essential in the automotive industry. Manual classification can be inconsistent,
+            especially with large datasets.
+        </p>
+    </div>
+</section>
+
+<!-- CARDS -->
+<section class="features">
+
+    <div class="card">
+        <i class="fas fa-tags icon"></i>
+        <h3>Type of ML</h3>
+        <p>Supervised Learning (Classification)</p>
+    </div>
+
+    <div class="card">
+        <i class="fas fa-list icon"></i>
+        <h3>Input Data</h3>
+        <p>Price, brand, engine, fuel type, year</p>
+    </div>
+
+    <div class="card">
+        <i class="fas fa-layer-group icon"></i>
+        <h3>Output</h3>
+        <p>Category: Economy, Standard, Luxury</p>
+    </div>
+
+    <div class="card">
+        <i class="fas fa-users icon"></i>
+        <h3>Relevance</h3>
+        <p>Improves filtering and user experience</p>
+    </div>
+
+</section>
+
+<footer>
+    <p>Machine Learning Academic Project</p>
+</footer>
+
+</body>
+</html>

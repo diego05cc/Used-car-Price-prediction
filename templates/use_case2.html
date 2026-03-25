@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Use Case 2</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- ICONOS (Font Awesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+
+<header>
+    <h1><i class="fas fa-chart-line"></i> Car Sales Forecasting</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/use-cases">Use Cases</a>
+        <a href="/regression">Linear Regression</a>
+    </nav>
+</header>
+
+<!-- HERO CON IMAGEN -->
+<section class="hero" style="background: url('/static/images/car_sales.jpg') center/cover;">
+   <div class="overlay light-box">
+        <h2>Problem Description</h2>
+        <p>
+            Car dealerships need to predict future sales to optimize inventory and strategy.
+            Market fluctuations make manual forecasting unreliable, requiring data-driven solutions.
+        </p>
+    </div>
+</section>
+
+<!-- TARJETAS -->
+<section class="features">
+
+    <div class="card">
+        <i class="fas fa-brain icon"></i>
+        <h3>Type of ML</h3>
+        <p>Supervised Learning (Regression)</p>
+    </div>
+
+    <div class="card">
+        <i class="fas fa-database icon"></i>
+        <h3>Input Data</h3>
+        <p>Historical sales, trends, economy, marketing</p>
+    </div>
+
+    <div class="card">
+        <i class="fas fa-chart-bar icon"></i>
+        <h3>Output</h3>
+        <p>Predicted number of sales</p>
+    </div>
+
+    <div class="card">
+        <i class="fas fa-lightbulb icon"></i>
+        <h3>Relevance</h3>
+        <p>Improves planning and reduces risks</p>
+    </div>
+
+</section>
+
+<footer>
+    <p>Machine Learning Academic Project</p>
+</footer>
+
+</body>
+</html>
