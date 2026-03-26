@@ -1,46 +1,33 @@
 import pandas as pd
-import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 import pickle
 
-# Crear datos de ejemplo para autos usados
-np.random.seed(42)
-n_samples = 1000
 
-# Generar datos sintéticos
-years = np.random.randint(2000, 2024, n_samples)
-mileages = np.random.randint(10000, 200000, n_samples)
+def train_and_save_model(dataset_path='dataset.csv', model_path='model.pkl'):
+    # Cargar datos
+    data = pd.read_csv(dataset_path)
 
-# Precio base disminuye con el año y aumenta con el kilometraje
-base_price = 30000
-prices = base_price - (2024 - years) * 1000 - (mileages / 1000) * 50
-prices += np.random.normal(0, 2000, n_samples)  # ruido
-prices = np.maximum(prices, 5000)  # precio mínimo
+    if 'year' not in data.columns or 'mileage' not in data.columns or 'price' not in data.columns:
+        raise ValueError("El dataset debe contener columnas 'year', 'mileage', 'price'.")
 
-# Crear DataFrame
-data = pd.DataFrame({
-    'year': years,
-    'mileage': mileages,
-    'price': prices
-})
+    X = data[['year', 'mileage']]
+    y = data['price']
 
-# Guardar dataset
-data.to_csv('dataset.csv', index=False)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Entrenar modelo
-X = data[['year', 'mileage']]
-y = data['price']
+    model = LinearRegression()
+    model.fit(X_train, y_train)
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    with open(model_path, 'wb') as f:
+        pickle.dump(model, f)
 
-model = LinearRegression()
-model.fit(X_train, y_train)
+    score_train = model.score(X_train, y_train)
+    score_test = model.score(X_test, y_test)
+    print(f"Modelo entrenado y guardado en {model_path}")
+    print(f"Score entrenamiento: {score_train:.3f}")
+    print(f"Score prueba: {score_test:.3f}")
 
-# Guardar modelo
-with open('model.pkl', 'wb') as f:
-    pickle.dump(model, f)
 
-print("Modelo entrenado y guardado exitosamente!")
-print(f"Score en entrenamiento: {model.score(X_train, y_train):.3f}")
-print(f"Score en prueba: {model.score(X_test, y_test):.3f}")
+if __name__ == '__main__':
+    train_and_save_model()
