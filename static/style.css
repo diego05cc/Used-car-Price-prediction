@@ -1,6 +1,57 @@
 body {
     font-family: Arial, sans-serif;
     margin: 0;
+<<<<<<< HEAD
+=======
+    background-color: #f4f6f8;
+}
+
+header {
+    background-color: #1f2937;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+nav a {
+    color: rgb(255, 255, 255);
+    margin: 0 10px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.hero {
+    text-align: center;
+    padding: 40px;
+}
+
+.features {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    width: 250px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #1f2937;
+    color: white;
+    margin-top: 20px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+>>>>>>> linear-regression
     background: #f4f6f9;
 }
 
@@ -15,19 +66,29 @@ nav a {
     color: white;
     margin: 10px;
     text-decoration: none;
+<<<<<<< HEAD
     font-weight: bold;
+=======
+>>>>>>> linear-regression
 }
 
 .hero {
     height: 300px;
     position: relative;
     color: rgb(2, 2, 2);
+<<<<<<< HEAD
     padding: 40px;
     text-align: center;
 }
 
 .light-box {
     background: rgba(255, 255, 255, 0.85); /* blanco transparent */
+=======
+}
+
+.light-box {
+    background: rgba(255, 255, 255, 0.85); /* blancoo tranparent */
+>>>>>>> linear-regression
     color: #222;
     max-width: 600px;
     margin: auto;
@@ -35,6 +96,10 @@ nav a {
     padding: 30px;
     border-radius: 12px;
     text-align: center;
+<<<<<<< HEAD
+=======
+    
+>>>>>>> linear-regression
     box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
@@ -43,7 +108,10 @@ nav a {
     justify-content: center;
     flex-wrap: wrap;
     padding: 30px;
+<<<<<<< HEAD
     gap: 20px;
+=======
+>>>>>>> linear-regression
 }
 
 .card {
@@ -56,16 +124,20 @@ nav a {
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
+<<<<<<< HEAD
 .card:hover {
     transform: scale(1.05);
     transition: 0.3s;
 }
 
+=======
+>>>>>>> linear-regression
 .icon {
     font-size: 30px;
     margin-bottom: 10px;
     color: #007BFF;
 }
+<<<<<<< HEAD
 
 footer {
     text-align: center;
@@ -73,6 +145,11 @@ footer {
     background: #1e2a38;
     color: white;
     margin-top: 20px;
+=======
+.card:hover {
+    transform: scale(1.05);
+    transition: 0.3s;
+>>>>>>> linear-regression
 }
 
 header h1 i {
