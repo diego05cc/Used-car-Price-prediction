@@ -1,5 +1,11 @@
-<form action="/logistic-predict" method="post">
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Decision Tree - Application</h2>
+
+<form action="/tree-predict" method="post">
     <input type="number" name="year" placeholder="Year" required>
     <input type="number" name="mileage" placeholder="Mileage" required>
     <button type="submit">Predict</button>
 </form>
+{% endblock %}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ML Web App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav>
+    <h2>Machine Learning App</h2>
+
+    <ul>
+        <li><a href="/">Home</a></li>
+
+        <li>Use Cases
+            <ul>
+                <li><a href="/use-case1">Use Case 1</a></li>
+                <li><a href="/use-case2">Use Case 2</a></li>
+                <li><a href="/use-case3">Use Case 3</a></li>
+                <li><a href="/use-case4">Use Case 4</a></li>
+            </ul>
+        </li>
+
+        <li>Supervised ML
+            <ul>
+                <li><a href="/regression">Linear Regression</a></li>
+
+                <li>Logistic Regression
+                    <ul>
+                        <li><a href="/logistic">Concepts</a></li>
+                        <li><a href="/logistic-app">Application</a></li>
+                    </ul>
+                </li>
+
+                <li>Decision Tree
+                    <ul>
+                        <li><a href="/tree">Concepts</a></li>
+                        <li><a href="/tree-app">Application</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+
+        <li><a href="/metrics">Metrics</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+
+</body>
+</html>
