@@ -2,6 +2,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.metrics import accuracy_score, confusion_matrix, precision_score, recall_score, f1_score, roc_curve, auc
+from sklearn.tree import DecisionTreeClassifier
 import pickle
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -57,6 +58,35 @@ def train_models(dataset_path='dataset.csv'):
     sns.heatmap(cm, annot=True, fmt='d')
     plt.title("Confusion Matrix")
     plt.savefig('static/confusion_matrix.png')
+
+
+    #decision tree piece new
+    tree_model = DecisionTreeClassifier()
+    tree_model.fit(X_train, y_train)
+
+    pickle.dump(tree_model, open('tree_model.pkl', 'wb'))
+
+    y_pred_tree = tree_model.predict(X_test)
+
+    #metrics TREE
+    acc_tree = accuracy_score(y_test, y_pred_tree)
+    prec_tree = precision_score(y_test, y_pred_tree)
+    rec_tree = recall_score(y_test, y_pred_tree)
+    f1_tree = f1_score(y_test, y_pred_tree)
+
+    print("Decision Tree Metrics:")
+    print("Accuracy:", acc_tree)
+    print("Precision:", prec_tree)
+    print("Recall:", rec_tree)
+    print("F1 Score:", f1_tree)
+
+    # CONFUSION MATRIX TREE
+    cm_tree = confusion_matrix(y_test, y_pred_tree)
+
+    plt.figure()
+    sns.heatmap(cm_tree, annot=True, fmt='d')
+    plt.title("Decision Tree Confusion Matrix")
+    plt.savefig('static/tree_confusion_matrix.png')
 
     #ROC CURVE
     y_prob = log_model.predict_proba(X_test)[:,1]

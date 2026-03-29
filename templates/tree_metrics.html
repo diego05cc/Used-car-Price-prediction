@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Decision Tree Metrics</h2>
+
+<img src="{{ url_for('static', filename='tree_confusion_matrix.png') }}" width="400">
+{% endblock %}
