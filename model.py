@@ -1,33 +1,74 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression, LogisticRegression
+from sklearn.metrics import accuracy_score, confusion_matrix, precision_score, recall_score, f1_score, roc_curve, auc
 import pickle
+import matplotlib.pyplot as plt
+import seaborn as sns
 
+def train_models(dataset_path='dataset.csv'):
 
-def train_and_save_model(dataset_path='dataset.csv', model_path='model.pkl'):
-    # Cargar datos
     data = pd.read_csv(dataset_path)
 
-    if 'year' not in data.columns or 'mileage' not in data.columns or 'price' not in data.columns:
-        raise ValueError("El dataset debe contener columnas 'year', 'mileage', 'price'.")
+    X_reg = data[['year', 'mileage']]
+    y_reg = data['price']
+
+    X_train, X_test, y_train, y_test = train_test_split(X_reg, y_reg, test_size=0.2, random_state=42)
+
+    reg_model = LinearRegression()
+    reg_model.fit(X_train, y_train)
+
+    pickle.dump(reg_model, open('model.pkl', 'wb'))
+
+    #new part of the classification
+
+    # Create a binary variable for example: expensive or cheap
+    data['price_category'] = (data['price'] > data['price'].median()).astype(int)
 
     X = data[['year', 'mileage']]
-    y = data['price']
+    y = data['price_category']
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    model = LinearRegression()
-    model.fit(X_train, y_train)
+    #Logistic Regression
+    log_model = LogisticRegression()
+    log_model.fit(X_train, y_train)
 
-    with open(model_path, 'wb') as f:
-        pickle.dump(model, f)
+    pickle.dump(log_model, open('logistic_model.pkl', 'wb'))
 
-    score_train = model.score(X_train, y_train)
-    score_test = model.score(X_test, y_test)
-    print(f"Modelo entrenado y guardado en {model_path}")
-    print(f"Score entrenamiento: {score_train:.3f}")
-    print(f"Score prueba: {score_test:.3f}")
+    y_pred = log_model.predict(X_test)
 
+    #metrics
+    acc = accuracy_score(y_test, y_pred)
+    prec = precision_score(y_test, y_pred)
+    rec = recall_score(y_test, y_pred)
+    f1 = f1_score(y_test, y_pred)
 
-if __name__ == '__main__':
-    train_and_save_model()
+    print("Logistic Regression Metrics:")
+    print("Accuracy:", acc)
+    print("Precision:", prec)
+    print("Recall:", rec)
+    print("F1 Score:", f1)
+
+    # CONFUSION MATRIX
+    cm = confusion_matrix(y_test, y_pred)
+
+    plt.figure()
+    sns.heatmap(cm, annot=True, fmt='d')
+    plt.title("Confusion Matrix")
+    plt.savefig('static/confusion_matrix.png')
+
+    #ROC CURVE
+    y_prob = log_model.predict_proba(X_test)[:,1]
+    fpr, tpr, _ = roc_curve(y_test, y_prob)
+    roc_auc = auc(fpr, tpr)
+
+    plt.figure()
+    plt.plot(fpr, tpr)
+    plt.title(f"ROC Curve (AUC = {roc_auc:.2f})")
+    plt.savefig('static/roc_curve.png')
+
+    return acc, prec, rec, f1
+
+if __name__ == "__main__":
+    train_models()
