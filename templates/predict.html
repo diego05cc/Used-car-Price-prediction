@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Predict — Linear Regression{% endblock %}
+{% block nav_reg %}active{% endblock %}
+
+{% block content %}
+<div class="page-hero page-hero--sm">
+    <div class="container">
+        <a href="/regression" class="breadcrumb">← Linear Regression</a>
+        <span class="section-label">Linear Regression · Predict</span>
+        <h1 class="page-hero-title">Enter Vehicle Details</h1>
+        <p class="page-hero-sub">Complete the form below to receive a price estimate from the trained model.</p>
+    </div>
+</div>
+
+<div class="container section-pad">
+    <section class="content-section">
+        <form action="/predict" method="post" class="predict-form">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="year">Manufacturing Year</label>
+                    <input type="number" id="year" name="year" placeholder="e.g. 2018" min="1990" max="2025" required>
+                </div>
+                <div class="form-group">
+                    <label for="mileage">Mileage (km)</label>
+                    <input type="number" id="mileage" name="mileage" placeholder="e.g. 75000" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="engine">Engine Size (cc)</label>
+                    <input type="number" id="engine" name="engine" placeholder="e.g. 1600" min="500" required>
+                </div>
+                <div class="form-group">
+                    <label for="fuel">Fuel Type</label>
+                    <select id="fuel" name="fuel" required>
+                        <option value="" disabled selected>Select fuel type</option>
+                        <option value="petrol">Petrol</option>
+                        <option value="diesel">Diesel</option>
+                        <option value="hybrid">Hybrid</option>
+                        <option value="electric">Electric</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="transmission">Transmission</label>
+                    <select id="transmission" name="transmission" required>
+                        <option value="" disabled selected>Select transmission</option>
+                        <option value="manual">Manual</option>
+                        <option value="automatic">Automatic</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="owners">Number of Previous Owners</label>
+                    <input type="number" id="owners" name="owners" placeholder="e.g. 2" min="0" max="20" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn--primary btn--lg" style="margin-top: 8px;">
+                Predict Price
+            </button>
+        </form>
+    </section>
+</div>
+{% endblock %}
