@@ -1,70 +1,108 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Use Case 1</title>
+{% extends "base.html" %}
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% block title %}Use Case 1 — Price Prediction{% endblock %}
+{% block nav_usecases %}active{% endblock %}
+{% block nav_uc1 %}active{% endblock %}
 
-    <!-- ICONOS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+{% block extra_head %}
+<!-- Font Awesome for section icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+{% endblock %}
 
-</head>
-<body>
-
-<header>
-    <h1><i class="fas fa-car"></i> Used Car Price Prediction</h1>
-    <nav>
-        <a href="/">Home</a>
-        <a href="/use-cases">Use Cases</a>
-        <a href="/regression">Linear Regression</a>
-    </nav>
-</header>
-
-
-<section class="hero" style="background: url('/static/images/used_car.jpg') center/cover;">
-    <div class="overlay light-box">
-        <h2>Problem Description</h2>
-        <p>
-            Determining the price of a used car is complex due to multiple influencing factors.
-            Buyers and sellers often rely on subjective judgment, which leads to inaccurate pricing.
-            Machine Learning enables a more reliable, data-driven estimation.
+{% block page_header %}
+<div class="inner-hero">
+    <div class="container">
+        <span class="section-label">Use Case 01 · Supervised Learning · Regression</span>
+        <h1 class="inner-hero-title">Used Car Price Prediction</h1>
+        <p class="inner-hero-sub">
+            Applying Linear Regression to estimate the market value of pre-owned vehicles
+            based on measurable attributes.
         </p>
     </div>
-</section>
+</div>
+{% endblock %}
 
-<!-- CARDS -->
-<section class="features">
+{% block content %}
+<div class="container section-pad">
 
-    <div class="card">
-        <i class="fas fa-brain icon"></i>
-        <h3>Type of ML</h3>
-        <p>Supervised Learning (Regression)</p>
+    <!-- ── 1. PROBLEM DESCRIPTION ───────────────────── -->
+    <div class="content-section">
+        <span class="section-label">Problem Description</span>
+        <h2 class="section-title">The Challenge</h2>
+        <p class="content-text">
+            Determining the fair price of a used car is a complex decision influenced by many
+            interdependent variables. Buyers rely on subjective assessments, while sellers often
+            lack objective benchmarks, leading to systematic mispricing. Traditional approaches —
+            consulting price guides or relying on dealer experience — are slow, inconsistent,
+            and difficult to scale.
+        </p>
+        <p class="content-text">
+            Machine Learning enables a <strong>data-driven, reproducible</strong> pricing model:
+            given a set of vehicle characteristics, the system returns a statistically grounded
+            price estimate, reducing uncertainty for both buyers and sellers.
+        </p>
     </div>
 
-    <div class="card">
-        <i class="fas fa-database icon"></i>
-        <h3>Input Data</h3>
-        <p>Year, mileage, engine size, brand, fuel type</p>
+    <!-- ── 2. TYPE OF ML ────────────────────────────── -->
+    <div class="info-cards-row">
+        <div class="info-card">
+            <i class="fas fa-brain info-card-icon"></i>
+            <h4>Type of ML</h4>
+            <p><strong>Supervised Learning — Regression.</strong> The model is trained on labelled
+            historical records (vehicle attributes + known sale price) and learns to map inputs
+            to a continuous numeric output.</p>
+        </div>
+        <div class="info-card">
+            <i class="fas fa-database info-card-icon"></i>
+            <h4>Input Features</h4>
+            <ul class="compact-list">
+                <li>Registration year</li>
+                <li>Mileage (km)</li>
+                <li>Engine displacement (cc)</li>
+                <li>Brand / manufacturer</li>
+                <li>Fuel type (petrol, diesel, hybrid)</li>
+                <li>Transmission type</li>
+                <li>Number of previous owners</li>
+                <li>Vehicle condition rating</li>
+            </ul>
+        </div>
+        <div class="info-card">
+            <i class="fas fa-dollar-sign info-card-icon"></i>
+            <h4>Expected Output</h4>
+            <p>A single <strong>continuous numeric value</strong> representing the predicted
+            market price of the vehicle in the local currency. The output is the model's best
+            estimate given the supplied feature values.</p>
+        </div>
+        <div class="info-card">
+            <i class="fas fa-handshake info-card-icon"></i>
+            <h4>Real-World Relevance</h4>
+            <p>Supports fair negotiation between buyers and sellers, helps dealerships
+            set competitive prices, and underpins online listing platforms that display
+            automatic price appraisals.</p>
+        </div>
     </div>
 
-    <div class="card">
-        <i class="fas fa-dollar-sign icon"></i>
-        <h3>Output</h3>
-        <p>Predicted car price</p>
+    <!-- ── 3. ALGORITHM NOTE ─────────────────────────── -->
+    <div class="content-section">
+        <span class="section-label">Algorithm</span>
+        <h2 class="section-title">Why Linear Regression?</h2>
+        <p class="content-text">
+            Linear Regression assumes a linear relationship between the input features and the
+            target variable (price). Despite its simplicity, it is highly interpretable — each
+            coefficient directly quantifies how a one-unit change in a feature affects the
+            predicted price — making it well-suited for an academic demonstration.
+        </p>
+        <p class="content-text">
+            The model minimises the <strong>Residual Sum of Squares (RSS)</strong> during
+            training, identifying the optimal weight for each feature. Performance is then
+            evaluated using <strong>R²</strong>, <strong>MAE</strong>, and <strong>RMSE</strong>
+            on a held-out test set.
+        </p>
+        <div class="cta-inline">
+            <a href="/regression" class="btn btn--primary">Try the Prediction App</a>
+            <a href="/metrics"    class="btn btn--ghost-dark">View Metrics</a>
+        </div>
     </div>
 
-    <div class="card">
-        <i class="fas fa-handshake icon"></i>
-        <h3>Relevance</h3>
-        <p>Supports better decisions for buyers and sellers</p>
-    </div>
-
-</section>
-
-<footer>
-    <p>Machine Learning Academic Project</p>
-</footer>
-
-</body>
-</html>
+</div>
+{% endblock %}

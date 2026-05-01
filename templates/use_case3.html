@@ -1,70 +1,109 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Use Case 3</title>
+{% extends "base.html" %}
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% block title %}Use Case 3 — Vehicle Classification{% endblock %}
+{% block nav_usecases %}active{% endblock %}
+{% block nav_uc3 %}active{% endblock %}
 
-    <!-- ICONOS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+{% block extra_head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+{% endblock %}
 
-</head>
-<body>
-
-<header>
-    <h1><i class="fas fa-car-side"></i> Car Classification</h1>
-    <nav>
-        <a href="/">Home</a>
-        <a href="/use-cases">Use Cases</a>
-        <a href="/regression">Linear Regression</a>
-    </nav>
-</header>
-
-
-<section class="hero" style="background: url('/static/images/car_classification.jpg') center/cover;">
-    <div class="overlay light-box">
-        <h2>Problem Description</h2>
-        <p>
-            Classifying vehicles into categories such as economy, standard, or luxury
-            is essential in the automotive industry. Manual classification can be inconsistent,
-            especially with large datasets.
+{% block page_header %}
+<div class="inner-hero">
+    <div class="container">
+        <span class="section-label">Use Case 03 · Supervised Learning · Classification</span>
+        <h1 class="inner-hero-title">Vehicle Category Classification</h1>
+        <p class="inner-hero-sub">
+            Automatically assigning vehicles to market segments using classification
+            models trained on vehicle characteristics.
         </p>
     </div>
-</section>
+</div>
+{% endblock %}
 
-<!-- CARDS -->
-<section class="features">
+{% block content %}
+<div class="container section-pad">
 
-    <div class="card">
-        <i class="fas fa-tags icon"></i>
-        <h3>Type of ML</h3>
-        <p>Supervised Learning (Classification)</p>
+    <!-- ── 1. PROBLEM DESCRIPTION ───────────────────── -->
+    <div class="content-section">
+        <span class="section-label">Problem Description</span>
+        <h2 class="section-title">The Challenge</h2>
+        <p class="content-text">
+            Automotive marketplaces and manufacturers segment vehicles into categories
+            — Economy, Standard, and Luxury — to guide pricing strategy, marketing
+            targeting, and regulatory compliance. Manual classification is time-consuming,
+            inconsistent across teams, and does not scale to large inventories with
+            thousands of daily listings.
+        </p>
+        <p class="content-text">
+            A classification model trained on labelled vehicle records can
+            <strong>automate and standardise</strong> this process, reducing human effort
+            and increasing consistency across the platform.
+        </p>
     </div>
 
-    <div class="card">
-        <i class="fas fa-list icon"></i>
-        <h3>Input Data</h3>
-        <p>Price, brand, engine, fuel type, year</p>
+    <!-- ── 2. CARDS ──────────────────────────────────── -->
+    <div class="info-cards-row">
+        <div class="info-card">
+            <i class="fas fa-tags info-card-icon"></i>
+            <h4>Type of ML</h4>
+            <p><strong>Supervised Learning — Multi-class Classification.</strong>
+            The model is trained on labelled examples (vehicle + known category) and
+            learns decision boundaries that separate the three market segments.</p>
+        </div>
+        <div class="info-card">
+            <i class="fas fa-list info-card-icon"></i>
+            <h4>Input Features</h4>
+            <ul class="compact-list">
+                <li>Listed price</li>
+                <li>Brand / manufacturer</li>
+                <li>Engine displacement (cc)</li>
+                <li>Fuel type</li>
+                <li>Transmission type</li>
+                <li>Registration year</li>
+                <li>Number of seats</li>
+                <li>Drive train (FWD / RWD / AWD)</li>
+            </ul>
+        </div>
+        <div class="info-card">
+            <i class="fas fa-layer-group info-card-icon"></i>
+            <h4>Expected Output</h4>
+            <p>A <strong>categorical label</strong> from three possible classes:
+            <em>Economy</em>, <em>Standard</em>, or <em>Luxury</em>. The model
+            also provides a class probability vector to express prediction
+            confidence.</p>
+        </div>
+        <div class="info-card">
+            <i class="fas fa-users info-card-icon"></i>
+            <h4>Real-World Relevance</h4>
+            <p>Improves search and filtering on listing platforms, enables
+            segment-specific pricing analytics, and supports regulatory reporting
+            that requires vehicle category declarations.</p>
+        </div>
     </div>
 
-    <div class="card">
-        <i class="fas fa-layer-group icon"></i>
-        <h3>Output</h3>
-        <p>Category: Economy, Standard, Luxury</p>
+    <!-- ── 3. ALGORITHMS & METRICS ─────────────────── -->
+    <div class="content-section">
+        <span class="section-label">Algorithms &amp; Evaluation</span>
+        <h2 class="section-title">Models and Performance Metrics</h2>
+        <p class="content-text">
+            Three classifiers are evaluated: <strong>Logistic Regression</strong> (as a
+            linear baseline), <strong>Decision Tree</strong> (for interpretability), and
+            <strong>Random Forest</strong> (for ensemble accuracy). Performance is measured
+            using <strong>Accuracy</strong>, <strong>Precision</strong>, <strong>Recall</strong>,
+            and <strong>F1-Score</strong> per class, with a multi-class confusion matrix
+            for error analysis.
+        </p>
+        <p class="content-text">
+            The dataset is stratified during the train/test split to ensure all three
+            classes are proportionally represented in both subsets, preventing bias
+            toward the majority class.
+        </p>
+        <div class="cta-inline">
+            <a href="/logistic" class="btn btn--primary">Logistic Concepts</a>
+            <a href="/tree"     class="btn btn--ghost-dark">Decision Tree Concepts</a>
+        </div>
     </div>
 
-    <div class="card">
-        <i class="fas fa-users icon"></i>
-        <h3>Relevance</h3>
-        <p>Improves filtering and user experience</p>
-    </div>
-
-</section>
-
-<footer>
-    <p>Machine Learning Academic Project</p>
-</footer>
-
-</body>
-</html>
+</div>
+{% endblock %}

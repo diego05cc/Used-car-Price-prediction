@@ -1,60 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Machine Learning Use Cases</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
+{% extends "base.html" %}
 
-<header>
-    <h1>Machine Learning Use Cases</h1>
-    <nav>
-        <a href="/">Home</a>
-        <a href="/use-cases">Use Cases</a>
-        <a href="/regression">Linear Regression</a>
-    </nav>
-</header>
+{% block title %}Use Cases{% endblock %}
+{% block nav_usecases %}active{% endblock %}
 
-<section class="hero">
-    <h2>Applications of Machine Learning in the Automotive Industry</h2>
-    <p>
-        This section presents four real-world applications of Machine Learning,
-        demonstrating how data-driven models can solve practical problems.
-    </p>
+{% block page_header %}
+<div class="inner-hero">
+    <div class="container">
+        <span class="section-label">Supervised &amp; Unsupervised Learning</span>
+        <h1 class="inner-hero-title">Machine Learning Use Cases</h1>
+        <p class="inner-hero-sub">
+            Four real-world applications of Machine Learning in the automotive industry —
+            each modelling a different problem type with distinct data requirements and outcomes.
+        </p>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<section class="section-pad">
+    <div class="container">
+
+        <!-- Use-case cards grid -->
+        <div class="uc-grid">
+
+            <!-- Card 1 -->
+            <div class="uc-card">
+                <div class="uc-card-num">01</div>
+                <h3>Used Car Price Prediction</h3>
+                <p class="uc-tag">Supervised · Regression</p>
+                <p>
+                    Estimate the market price of a used vehicle based on its attributes —
+                    year, mileage, brand, fuel type, and engine size — using a trained
+                    Linear Regression model.
+                </p>
+                <a href="/use-case1" class="btn btn--primary btn--sm">View Details</a>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="uc-card">
+                <div class="uc-card-num">02</div>
+                <h3>Car Sales Forecasting</h3>
+                <p class="uc-tag">Supervised · Regression</p>
+                <p>
+                    Predict the number of vehicles a dealership is likely to sell in a given
+                    period, using historical sales figures, seasonal trends, and economic
+                    indicators.
+                </p>
+                <a href="/use-case2" class="btn btn--primary btn--sm">View Details</a>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="uc-card">
+                <div class="uc-card-num">03</div>
+                <h3>Vehicle Classification</h3>
+                <p class="uc-tag">Supervised · Classification</p>
+                <p>
+                    Automatically assign vehicles to market categories — Economy, Standard,
+                    or Luxury — using classification models trained on price, brand,
+                    engine capacity, and fuel type.
+                </p>
+                <a href="/use-case3" class="btn btn--primary btn--sm">View Details</a>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="uc-card">
+                <div class="uc-card-num">04</div>
+                <h3>Fraud Detection</h3>
+                <p class="uc-tag">Unsupervised · Anomaly Detection</p>
+                <p>
+                    Identify suspicious listings in online car marketplaces by detecting
+                    statistical anomalies in pricing, mileage records, and seller behaviour
+                    patterns — without requiring labelled fraud data.
+                </p>
+                <a href="/use-case4" class="btn btn--primary btn--sm">View Details</a>
+            </div>
+
+        </div>
+    </div>
 </section>
-
-<section class="features">
-
-    <div class="card">
-        <h3>Used Car Price Prediction</h3>
-        <p>Estimate vehicle prices using historical data.</p>
-        <a href="/use-case1">View details</a>
-    </div>
-
-    <div class="card">
-        <h3>Car Sales Forecasting</h3>
-        <p>Predict future sales trends in the automotive market.</p>
-        <a href="/use-case2">View details</a>
-    </div>
-
-    <div class="card">
-        <h3>Car Classification</h3>
-        <p>Classify vehicles into categories such as economy or luxury.</p>
-        <a href="/use-case3">View details</a>
-    </div>
-
-    <div class="card">
-        <h3>Fraud Detection</h3>
-        <p>Identify suspicious patterns in car sales data.</p>
-        <a href="/use-case4">View details</a>
-    </div>
-
-</section>
-
-<footer>
-    <p>Machine Learning Academic Project</p>
-</footer>
-
-</body>
-</html>
+{% endblock %}

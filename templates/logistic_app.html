@@ -1,5 +1,182 @@
-<form action="/logistic-predict" method="post">
-    <input type="number" name="year" placeholder="Year" required>
-    <input type="number" name="mileage" placeholder="Mileage" required>
-    <button type="submit">Predict</button>
-</form>
+{% extends "base.html" %}
+
+{% block title %}Logistic Regression — Application{% endblock %}
+{% block nav_logistic_app %}active{% endblock %}
+
+{% block page_header %}
+<div class="inner-hero">
+    <div class="container">
+        <span class="section-label">Logistic Regression · Interactive Application</span>
+        <h1 class="inner-hero-title">Is This Car Expensive?</h1>
+        <p class="inner-hero-sub">
+            Enter vehicle attributes and let the trained Logistic Regression model
+            classify the car as expensive or budget.
+        </p>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container section-pad">
+
+    <!-- ── PROBLEM DESCRIPTION ──────────────────────── -->
+    <div class="content-section">
+        <span class="section-label">Problem Description</span>
+        <h2 class="section-title">Binary Classification of Car Price Range</h2>
+        <p class="content-text">
+            This application applies a trained <strong>Logistic Regression</strong> model to
+            determine whether a vehicle is likely to sell above or below a predefined price
+            threshold (in this project, $20,000). The output is a class label —
+            <em>Expensive</em> or <em>Budget</em> — along with the model's confidence score.
+        </p>
+    </div>
+
+    <!-- ── DATASET EXPLANATION ──────────────────────── -->
+    <div class="content-section">
+        <span class="section-label">Dataset &amp; Variables</span>
+        <h2 class="section-title">Training Data Overview</h2>
+        <p class="content-text">
+            The model was trained on the same 10,000+ vehicle records used for Linear
+            Regression, with the continuous price target converted to a binary label
+            (1 = price &gt; $20k, 0 = price ≤ $20k). Class distribution: approximately
+            <strong>42% expensive</strong> and <strong>58% budget</strong> vehicles —
+            a mild imbalance handled via class-weight adjustment during training.
+        </p>
+        <div class="var-table-wrap">
+            <table class="var-table">
+                <thead>
+                    <tr><th>Feature</th><th>Type</th><th>Contribution</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Year</td><td>Numeric</td><td>Newer cars → higher probability of expensive</td></tr>
+                    <tr><td>Mileage</td><td>Numeric</td><td>Higher mileage → lower probability</td></tr>
+                    <tr><td>Engine (cc)</td><td>Numeric</td><td>Larger engine → higher probability</td></tr>
+                    <tr><td>Fuel Type</td><td>Categorical</td><td>Hybrid / electric → higher probability</td></tr>
+                    <tr><td>Transmission</td><td>Categorical</td><td>Automatic → slightly higher probability</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ── MODEL TRAINING EXPLANATION ──────────────── -->
+    <div class="content-section">
+        <span class="section-label">Model Training</span>
+        <h2 class="section-title">How the Model Was Trained</h2>
+        <p class="content-text">
+            After preprocessing (scaling + encoding), the dataset is split 80/20 into
+            training and test sets. Logistic Regression is trained using
+            <strong>L2 regularisation</strong> (ridge penalty) to prevent overfitting on
+            correlated features. The regularisation strength C = 1.0 was selected via
+            5-fold cross-validation.
+        </p>
+        <p class="content-text">
+            The optimiser (lbfgs) minimises the <em>binary cross-entropy loss</em> over
+            the training set, adjusting all coefficients until convergence.
+        </p>
+    </div>
+
+    <!-- ── METRICS EXPLANATION ──────────────────────── -->
+    <div class="content-section">
+        <span class="section-label">Evaluation Metrics</span>
+        <h2 class="section-title">Understanding the Performance Metrics</h2>
+
+        <div class="concept-grid">
+            <div class="concept-card">
+                <div class="concept-num">Acc</div>
+                <h4>Accuracy</h4>
+                <p>The fraction of all predictions that are correct.
+                <code>(TP + TN) / (TP + TN + FP + FN)</code>. Simple but can be
+                misleading with class imbalance.</p>
+            </div>
+            <div class="concept-card">
+                <div class="concept-num">Pre</div>
+                <h4>Precision</h4>
+                <p>Of all cars predicted as <em>expensive</em>, what fraction actually are?
+                <code>TP / (TP + FP)</code>. High precision means few false alarms.</p>
+            </div>
+            <div class="concept-card">
+                <div class="concept-num">Rec</div>
+                <h4>Recall</h4>
+                <p>Of all cars that truly are <em>expensive</em>, what fraction did the
+                model correctly identify? <code>TP / (TP + FN)</code>. High recall
+                means few misses.</p>
+            </div>
+            <div class="concept-card">
+                <div class="concept-num">F1</div>
+                <h4>F1-Score</h4>
+                <p>The harmonic mean of Precision and Recall.
+                <code>2 × (P × R) / (P + R)</code>. Balances both metrics and is
+                preferred when class sizes differ.</p>
+            </div>
+            <div class="concept-card">
+                <div class="concept-num">CM</div>
+                <h4>Confusion Matrix</h4>
+                <p>A 2×2 table showing True Positives, True Negatives, False Positives,
+                and False Negatives. Reveals which type of error the model makes most.
+                See the Metrics page for the full matrix.</p>
+            </div>
+            <div class="concept-card">
+                <div class="concept-num">ROC</div>
+                <h4>ROC / AUC</h4>
+                <p>The ROC curve plots the True Positive Rate against the False Positive Rate
+                at every threshold. AUC (Area Under the Curve) summarises overall
+                discrimination power — 1.0 is perfect, 0.5 is random.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── PREDICTION FORM ──────────────────────────── -->
+    <hr class="section-divider">
+    <div class="content-section">
+        <span class="section-label">Interactive Prediction</span>
+        <h2 class="section-title">Classify a Vehicle</h2>
+        <p class="content-text">
+            Enter the vehicle details below. The model will return whether the car falls
+            into the <em>Expensive</em> or <em>Budget</em> category, along with the
+            estimated probability.
+        </p>
+
+        <div class="prediction-form-card">
+            <!-- Flask route preserved: action="/logistic-predict" method="post" -->
+            <form action="/logistic-predict" method="post" class="prediction-form">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="year">Registration Year</label>
+                        <input type="number" id="year" name="year"
+                               placeholder="e.g. 2018" min="1990" max="2025" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mileage">Mileage (km)</label>
+                        <input type="number" id="mileage" name="mileage"
+                               placeholder="e.g. 60000" min="0" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="engine">Engine Size (cc)</label>
+                        <input type="number" id="engine" name="engine"
+                               placeholder="e.g. 2000" min="600">
+                    </div>
+                    <div class="form-group">
+                        <label for="fuel">Fuel Type</label>
+                        <select id="fuel" name="fuel" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="petrol">Petrol</option>
+                            <option value="diesel">Diesel</option>
+                            <option value="hybrid">Hybrid</option>
+                            <option value="electric">Electric</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn--primary btn--lg form-submit">
+                    Classify this Vehicle
+                </button>
+            </form>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

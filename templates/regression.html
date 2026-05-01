@@ -1,29 +1,110 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Linear Regression</title>
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
-<header>
-    <h1>Linear Regression - Usar Modelo</h1>
-    <nav>
-        <a href="/">Home</a>
-        <a href="/use-cases">Use Cases</a>
-        <a href="/regression">Linear Regression</a>
-    </nav>
-</header>
-<main>
-    <h2>Predict used car price</h2>
-    <form action="/predict" method="post">
-        <label>Año: <input type="number" name="year" required></label><br>
-        <label>Kilometraje: <input type="number" name="mileage" required></label><br>
-        <button type="submit">Predecir</button>
-    </form>
-</main>
-<footer>
-    <p>Machine Learning Academic Project</p>
-</footer>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Use Case 4 — Fraud Detection{% endblock %}
+{% block nav_usecases %}active{% endblock %}
+{% block nav_uc4 %}active{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+{% endblock %}
+
+{% block page_header %}
+<div class="inner-hero">
+    <div class="container">
+        <span class="section-label">Use Case 04 · Unsupervised Learning · Anomaly Detection</span>
+        <h1 class="inner-hero-title">Fraud Detection in Car Sales</h1>
+        <p class="inner-hero-sub">
+            Identifying suspicious listings and anomalous seller behaviour in online
+            automotive marketplaces without relying on labelled fraud examples.
+        </p>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container section-pad">
+
+    <!-- ── 1. PROBLEM DESCRIPTION ───────────────────── -->
+    <div class="content-section">
+        <span class="section-label">Problem Description</span>
+        <h2 class="section-title">The Challenge</h2>
+        <p class="content-text">
+            Online car marketplaces face a growing volume of fraudulent listings: vehicles
+            advertised with manipulated odometer readings, misrepresented accident history,
+            inflated or deliberately underpriced listings designed to attract victims, and
+            accounts exhibiting patterns consistent with scam operations.
+        </p>
+        <p class="content-text">
+            Unlike supervised fraud detection, <strong>labelled fraud datasets are rarely
+            available</strong> in this domain — fraud is underreported and evolves over time.
+            Unsupervised anomaly detection learns the statistical distribution of legitimate
+            listings and flags records that deviate significantly from expected patterns,
+            without requiring prior examples of fraud.
+        </p>
+    </div>
+
+    <!-- ── 2. CARDS ──────────────────────────────────── -->
+    <div class="info-cards-row">
+        <div class="info-card">
+            <i class="fas fa-user-secret info-card-icon"></i>
+            <h4>Type of ML</h4>
+            <p><strong>Unsupervised Learning — Anomaly Detection.</strong>
+            Models such as Isolation Forest and Autoencoders learn the "normal"
+            data distribution and assign anomaly scores to new listings without
+            requiring labelled fraud examples.</p>
+        </div>
+        <div class="info-card">
+            <i class="fas fa-search info-card-icon"></i>
+            <h4>Input Features</h4>
+            <ul class="compact-list">
+                <li>Listed price vs. market median</li>
+                <li>Mileage vs. age ratio</li>
+                <li>Number of listings per seller</li>
+                <li>Listing age and edit frequency</li>
+                <li>Geographic inconsistencies</li>
+                <li>Description quality score</li>
+                <li>Image hash (duplicate detection)</li>
+            </ul>
+        </div>
+        <div class="info-card">
+            <i class="fas fa-exclamation-triangle info-card-icon"></i>
+            <h4>Expected Output</h4>
+            <p>An <strong>anomaly score</strong> between 0 and 1 per listing, plus a
+            binary <em>suspicious / normal</em> flag when the score exceeds a
+            calibrated threshold. High-scoring listings are queued for human review.</p>
+        </div>
+        <div class="info-card">
+            <i class="fas fa-shield-alt info-card-icon"></i>
+            <h4>Real-World Relevance</h4>
+            <p>Protects buyers from financial loss, reduces manual moderation overhead
+            for platform operators, and increases marketplace trust — a key driver
+            of long-term user retention and revenue.</p>
+        </div>
+    </div>
+
+    <!-- ── 3. TECHNICAL NOTES ───────────────────────── -->
+    <div class="content-section">
+        <span class="section-label">Technical Notes</span>
+        <h2 class="section-title">Algorithms &amp; Evaluation Challenges</h2>
+        <p class="content-text">
+            The primary algorithm used is <strong>Isolation Forest</strong>, which isolates
+            anomalies by recursively partitioning the feature space. Anomalies are points
+            that require fewer partitions to isolate — they are statistically "easy to
+            separate" from the bulk of the data.
+        </p>
+        <p class="content-text">
+            Evaluating unsupervised models is inherently difficult without ground-truth
+            labels. Proxy evaluation uses <strong>Precision@k</strong> (the fraction of the
+            top-k flagged listings that are confirmed fraudulent by manual review) and
+            <strong>recall on a small labelled validation set</strong> assembled from
+            confirmed past cases.
+        </p>
+        <p class="content-text">
+            Threshold selection involves a precision-recall trade-off: a stricter threshold
+            reduces false positives (legitimate listings wrongly flagged) but increases
+            false negatives (fraud that goes undetected).
+        </p>
+    </div>
+
+</div>
+{% endblock %}
