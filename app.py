@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request
 import pickle
+import pandas as pd
+from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
 
 app = Flask(__name__)
 
@@ -152,6 +155,59 @@ def metrics():
 def tree_metrics():
     return render_template('tree_metrics.html')
 
+
+# UNSUPERVISED (K-MEANS)
+
+# MAIN PAGE (concepts)
+@app.route('/unsupervised')
+def unsupervised():
+    return render_template('unsupervised.html')
+
+
+# KMEANS INFO PAGE
+@app.route('/kmeans')
+def kmeans_page():
+    return render_template('kmeans.html')
+
+
+# KMEANS EXECUTION
+@app.route('/kmeans-run')
+def kmeans_run():
+    try:
+        # load dataset
+        data = pd.read_csv('dataset.csv')
+
+        
+        X = data[['year', 'mileage']]
+
+        # model
+        kmeans = KMeans(n_clusters=3, random_state=42)
+        kmeans.fit(X)
+
+        data['cluster'] = kmeans.labels_
+        centroids = kmeans.cluster_centers_
+
+        # plot
+        plt.figure()
+        plt.scatter(X.iloc[:, 0], X.iloc[:, 1], c=kmeans.labels_)
+        plt.scatter(centroids[:, 0], centroids[:, 1], marker='X')
+        plt.title("K-Means Clustering")
+        plt.xlabel("Feature 1")
+        plt.ylabel("Feature 2")
+        plt.savefig('static/kmeans.png')
+        plt.close()
+
+        # table
+        table = data.head(50).to_html(classes='table table-striped')
+
+        return render_template(
+            'kmeans_result.html',
+            table=table,
+            centroids=centroids.tolist()
+        )
+
+    except Exception as e:
+        return f"Error: {str(e)}"
 
 #RUN APP
 if __name__ == "__main__":

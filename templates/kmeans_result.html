@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>K-Means Results</h1>
+
+<h2>Clustered Data</h2>
+{{ table | safe }}
+
+<h2>Centroids</h2>
+<ul>
+{% for c in centroids %}
+    <li>{{ c }}</li>
+{% endfor %}
+</ul>
+
+<h2>Visualization</h2>
+<img src="{{ url_for('static', filename='kmeans.png') }}" width="500">
+
+{% endblock %}
