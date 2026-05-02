@@ -1,12 +1,176 @@
 {% extends "base.html" %}
+{% block title %}Decision Tree — Concepts{% endblock %}
+{% block nav_tree %}active{% endblock %}
 
 {% block content %}
-<h2>Decision Tree - Concepts</h2>
 
-<p>A decision tree splits data into branches.</p>
+<div class="page-hero">
+    <div class="container">
+        <span class="section-label">Supervised Learning · Classification &amp; Regression</span>
+        <h1 class="page-hero-title">Decision Tree — Concepts</h1>
+        <p class="page-hero-sub">
+            Understanding how Decision Trees partition feature space with a series of
+            if-then rules to make predictions for both classification and regression tasks.
+        </p>
+    </div>
+</div>
 
-<ul>
-    <li>Easy to understand</li>
-    <li>Handles non-linear data</li>
-</ul>
+<div class="container section-pad">
+
+    <!-- ── What is a Decision Tree ──────────────── -->
+    <section class="content-section">
+        <span class="section-label">01</span>
+        <h2 class="section-title">What is a Decision Tree?</h2>
+        <div class="prose-block">
+            <p>
+                A Decision Tree is a supervised Machine Learning model that makes predictions
+                by <strong>recursively splitting the dataset</strong> into smaller and smaller
+                subsets based on feature values. The result is a hierarchical tree structure
+                of if-then-else rules that is easy to visualise and interpret.
+            </p>
+            <p>
+                Each internal node of the tree represents a <strong>decision rule</strong>
+                based on a single feature (e.g. <em>"Is mileage &gt; 80,000 km?"</em>).
+                Each branch represents the outcome of that test.
+                Each <strong>leaf node</strong> holds the final prediction — a class label
+                for classification trees or a numeric value for regression trees.
+            </p>
+        </div>
+    </section>
+
+    <!-- ── How it Works ──────────────────────────── -->
+    <section class="content-section">
+        <span class="section-label">02</span>
+        <h2 class="section-title">How it Works — Splitting Criteria</h2>
+        <div class="prose-block">
+            <p>
+                At each node the algorithm evaluates every possible split on every feature
+                and selects the one that best separates the data according to an
+                <strong>impurity measure</strong>:
+            </p>
+        </div>
+        <div class="info-cards">
+            <div class="info-card info-card--accent">
+                <h4>Gini Impurity (Classification)</h4>
+                <p>
+                    Measures how often a randomly chosen element would be incorrectly
+                    classified. A Gini of 0 means the node is perfectly pure (all same class).
+                    The algorithm picks the split that minimises weighted Gini across child nodes.
+                </p>
+            </div>
+            <div class="info-card">
+                <h4>Mean Squared Error (Regression)</h4>
+                <p>
+                    For regression trees, the split that minimises the variance (MSE) of the
+                    target values within each child node is selected, resulting in more
+                    homogeneous groups.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Example ──────────────────────────────── -->
+    <section class="content-section">
+        <span class="section-label">03</span>
+        <h2 class="section-title">Worked Example</h2>
+        <div class="example-box">
+            <p class="example-label">Classifying a car as Expensive / Not Expensive</p>
+            <div class="tree-diagram">
+                <div class="tree-node tree-node--root">Mileage &gt; 80,000 km?</div>
+                <div class="tree-branches">
+                    <div class="tree-branch">
+                        <div class="tree-branch-label">Yes</div>
+                        <div class="tree-node">Age &gt; 6 years?</div>
+                        <div class="tree-branches">
+                            <div class="tree-branch">
+                                <div class="tree-branch-label">Yes</div>
+                                <div class="tree-node tree-node--leaf tree-node--neg">Not Expensive</div>
+                            </div>
+                            <div class="tree-branch">
+                                <div class="tree-branch-label">No</div>
+                                <div class="tree-node tree-node--leaf">Not Expensive</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tree-branch">
+                        <div class="tree-branch-label">No</div>
+                        <div class="tree-node">Engine &gt; 2000 cc?</div>
+                        <div class="tree-branches">
+                            <div class="tree-branch">
+                                <div class="tree-branch-label">Yes</div>
+                                <div class="tree-node tree-node--leaf tree-node--pos">Expensive</div>
+                            </div>
+                            <div class="tree-branch">
+                                <div class="tree-branch-label">No</div>
+                                <div class="tree-node tree-node--leaf">Not Expensive</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p style="margin-top:16px; color: var(--muted); font-size: 0.88rem;">
+                This simplified tree illustrates how the model makes sequential binary
+                decisions to arrive at a prediction.
+            </p>
+        </div>
+    </section>
+
+    <!-- ── Advantages ───────────────────────────── -->
+    <section class="content-section">
+        <span class="section-label">04</span>
+        <h2 class="section-title">Advantages</h2>
+        <div class="relevance-grid">
+            <div class="relevance-item">
+                <i class="fas fa-eye"></i>
+                <h4>Interpretability</h4>
+                <p>The tree structure is human-readable — stakeholders can follow the decision path without ML expertise.</p>
+            </div>
+            <div class="relevance-item">
+                <i class="fas fa-random"></i>
+                <h4>Handles Non-Linearity</h4>
+                <p>Unlike Linear Regression, Decision Trees can model complex, non-linear relationships between features and target.</p>
+            </div>
+            <div class="relevance-item">
+                <i class="fas fa-tools"></i>
+                <h4>Minimal Preprocessing</h4>
+                <p>Does not require feature scaling, can handle categorical variables natively, and is robust to outliers.</p>
+            </div>
+            <div class="relevance-item">
+                <i class="fas fa-layer-group"></i>
+                <h4>Dual Use</h4>
+                <p>A single algorithm framework supports both classification (categorical output) and regression (numeric output).</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Limitations ──────────────────────────── -->
+    <section class="content-section">
+        <span class="section-label">05</span>
+        <h2 class="section-title">Limitations</h2>
+        <div class="info-cards">
+            <div class="info-card">
+                <h4>Overfitting</h4>
+                <p>
+                    Without constraints (max depth, min samples per leaf), trees grow until
+                    every training sample is perfectly classified — memorising noise rather than
+                    learning patterns. <strong>Pruning</strong> and depth limits combat this.
+                </p>
+            </div>
+            <div class="info-card">
+                <h4>Instability</h4>
+                <p>
+                    Small changes in training data can produce very different trees.
+                    Ensemble methods like <strong>Random Forest</strong> mitigate this by
+                    averaging predictions across many trees.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <div class="page-nav-row">
+        <a href="/logistic-app" class="btn btn--ghost-dark">← Logistic App</a>
+        <a href="/tree-app"     class="btn btn--primary">Decision Tree App →</a>
+    </div>
+
+</div>
 {% endblock %}

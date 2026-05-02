@@ -1,24 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>K-Means Results</title>
-</head>
-<body>
 
-    <h1>K-Means Results</h1>
+{% extends "base.html" %}
 
-    <h2>Clustered Data</h2>
-    {{ table | safe }}
+{% block content %}
 
-    <h2>Centroids</h2>
-    <ul>
-        {% for c in centroids %}
-            <li>{{ c }}</li>
-        {% endfor %}
-    </ul>
+<h1>K-Means Results</h1>
 
-    <h2>Visualization</h2>
-    <img src="{{ url_for('static', filename='kmeans.png') }}" width="500">
+<h2>Clustered Data</h2>
+{{ table | safe }}
 
-</body>
-</html>
+<h2>Centroids</h2>
+<ul>
+{% for c in centroids %}
+    <li>{{ c }}</li>
+{% endfor %}
+</ul>
+
+<h2>Visualization</h2>
+<img src="{{ url_for('static', filename='kmeans.png') }}" width="500">
+
+{% endblock %}
+>>>>>>> fix/kmeans-bug

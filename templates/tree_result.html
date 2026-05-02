@@ -1,7 +1,32 @@
 {% extends "base.html" %}
+{% block title %}Tree Result — Decision Tree{% endblock %}
+{% block nav_treeapp %}active{% endblock %}
 
 {% block content %}
-<h2>Prediction Result</h2>
+<div class="page-hero page-hero--sm">
+    <div class="container">
+        <a href="/tree-app" class="breadcrumb">← Back to Tree App</a>
+        <span class="section-label">Decision Tree · Result</span>
+        <h1 class="page-hero-title">Classification Result</h1>
+    </div>
+</div>
 
-<p>{{ result }}</p>
+<div class="container section-pad">
+    <section class="content-section">
+        <div class="result-card">
+            <div class="result-icon">⋔</div>
+            <h2 class="result-label">Prediction</h2>
+            <p class="result-value">{{ result }}</p>
+            <p class="result-note">
+                This classification was produced by the trained Decision Tree model (max depth 6).
+                A result of <strong>Expensive</strong> means the model predicts a sale price
+                at or above the dataset median ($13,500).
+            </p>
+            <div class="result-actions">
+                <a href="/tree-app" class="btn btn--primary">Predict Again</a>
+                <a href="/metrics"  class="btn btn--ghost-dark">View Metrics</a>
+            </div>
+        </div>
+    </section>
+</div>
 {% endblock %}

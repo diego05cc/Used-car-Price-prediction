@@ -1,70 +1,139 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Use Case 2</title>
+{% extends "base.html" %}
+{% block title %}Use Case 2 — Car Sales Forecasting{% endblock %}
+{% block nav_uc2 %}active{% endblock %}
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% block content %}
 
-    <!-- ICONOS (Font Awesome) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-</head>
-<body>
-
-<header>
-    <h1><i class="fas fa-chart-line"></i> Car Sales Forecasting</h1>
-    <nav>
-        <a href="/">Home</a>
-        <a href="/use-cases">Use Cases</a>
-        <a href="/regression">Linear Regression</a>
-    </nav>
-</header>
-
-<!-- HERO CON IMAGEN -->
-<section class="hero" style="background: url('/static/images/car_sales.jpg') center/cover;">
-   <div class="overlay light-box">
-        <h2>Problem Description</h2>
-        <p>
-            Car dealerships need to predict future sales to optimize inventory and strategy.
-            Market fluctuations make manual forecasting unreliable, requiring data-driven solutions.
+<div class="page-hero">
+    <div class="container">
+        <a href="/use-cases" class="breadcrumb">← Use Cases</a>
+        <span class="section-label">Use Case 2 · Regression</span>
+        <h1 class="page-hero-title">
+            <i class="fas fa-chart-line"></i> Car Sales Forecasting
+        </h1>
+        <p class="page-hero-sub">
+            Predicting future automotive sales volumes to support dealership planning,
+            inventory management, and marketing investment decisions.
         </p>
     </div>
-</section>
+</div>
 
-<!-- TARJETAS -->
-<section class="features">
+<div class="container section-pad">
 
-    <div class="card">
-        <i class="fas fa-brain icon"></i>
-        <h3>Type of ML</h3>
-        <p>Supervised Learning (Regression)</p>
+    <!-- ── Problem Description ─────────────────── -->
+    <section class="content-section">
+        <span class="section-label">01</span>
+        <h2 class="section-title">Problem Description</h2>
+        <div class="prose-block">
+            <p>
+                Car dealerships operate in a volatile market influenced by fuel prices, interest
+                rates, consumer sentiment, and seasonal demand patterns. Without reliable sales
+                forecasts, dealerships risk overstocking slow-moving models or running out of
+                high-demand vehicles — both of which carry significant financial costs.
+            </p>
+            <p>
+                A Machine Learning regression model trained on historical sales records, economic
+                indicators, and marketing spend can provide accurate short-term forecasts,
+                enabling data-driven inventory and staffing decisions.
+            </p>
+        </div>
+    </section>
+
+    <!-- ── ML Type ──────────────────────────────── -->
+    <section class="content-section">
+        <span class="section-label">02</span>
+        <h2 class="section-title">Type of Machine Learning</h2>
+        <div class="info-cards">
+            <div class="info-card info-card--accent">
+                <h4>Supervised Learning</h4>
+                <p>
+                    Historical monthly sales data serves as labelled training examples.
+                    Each record pairs a set of economic and operational inputs with an
+                    observed sales count.
+                </p>
+            </div>
+            <div class="info-card">
+                <h4>Time-Series Regression</h4>
+                <p>
+                    The target variable — number of units sold — is continuous,
+                    making this a regression problem with a temporal component.
+                    Multiple regression or gradient boosting are common algorithm choices.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Input Data ───────────────────────────── -->
+    <section class="content-section">
+        <span class="section-label">03</span>
+        <h2 class="section-title">Input Data (Features)</h2>
+        <div class="table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr><th>Feature</th><th>Type</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Month / Quarter</td><td>Temporal</td><td>Time period of the observation</td></tr>
+                    <tr><td>Historical Sales</td><td>Numeric</td><td>Sales figures from previous periods (lag features)</td></tr>
+                    <tr><td>Average Fuel Price</td><td>Numeric</td><td>National average pump price during the period</td></tr>
+                    <tr><td>Interest Rate</td><td>Numeric</td><td>Central bank benchmark lending rate</td></tr>
+                    <tr><td>Consumer Confidence</td><td>Numeric</td><td>Published consumer confidence index</td></tr>
+                    <tr><td>Marketing Spend</td><td>Numeric</td><td>Dealership advertising budget for the period</td></tr>
+                    <tr><td>Seasonal Flag</td><td>Categorical</td><td>High / Normal / Low demand season</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- ── Expected Output ──────────────────────── -->
+    <section class="content-section">
+        <span class="section-label">04</span>
+        <h2 class="section-title">Expected Output</h2>
+        <div class="output-highlight">
+            <div class="output-icon">n</div>
+            <div>
+                <h4>Predicted Units Sold</h4>
+                <p>
+                    A numeric forecast of the number of vehicles expected to be sold in the
+                    upcoming period. For example: <strong>347 units in Q3</strong>.
+                    Confidence intervals can be added to communicate forecast uncertainty.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Real-World Relevance ──────────────────── -->
+    <section class="content-section">
+        <span class="section-label">05</span>
+        <h2 class="section-title">Real-World Relevance</h2>
+        <div class="relevance-grid">
+            <div class="relevance-item">
+                <i class="fas fa-boxes"></i>
+                <h4>Inventory Optimisation</h4>
+                <p>Stock the right models in the right quantities, reducing carrying costs and lost sales.</p>
+            </div>
+            <div class="relevance-item">
+                <i class="fas fa-users"></i>
+                <h4>Workforce Planning</h4>
+                <p>Schedule sales and service staff appropriately for predicted demand peaks and troughs.</p>
+            </div>
+            <div class="relevance-item">
+                <i class="fas fa-bullhorn"></i>
+                <h4>Marketing Allocation</h4>
+                <p>Concentrate advertising spend in periods where demand is predicted to be below target.</p>
+            </div>
+            <div class="relevance-item">
+                <i class="fas fa-industry"></i>
+                <h4>Manufacturer Supply Chain</h4>
+                <p>Automakers use macro forecasts to plan production runs months or years in advance.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="page-nav-row">
+        <a href="/use-case1" class="btn btn--ghost-dark">← Price Prediction</a>
+        <a href="/use-case3" class="btn btn--primary">Next: Car Classification →</a>
     </div>
 
-    <div class="card">
-        <i class="fas fa-database icon"></i>
-        <h3>Input Data</h3>
-        <p>Historical sales, trends, economy, marketing</p>
-    </div>
-
-    <div class="card">
-        <i class="fas fa-chart-bar icon"></i>
-        <h3>Output</h3>
-        <p>Predicted number of sales</p>
-    </div>
-
-    <div class="card">
-        <i class="fas fa-lightbulb icon"></i>
-        <h3>Relevance</h3>
-        <p>Improves planning and reduces risks</p>
-    </div>
-
-</section>
-
-<footer>
-    <p>Machine Learning Academic Project</p>
-</footer>
-
-</body>
-</html>
+</div>
+{% endblock %}

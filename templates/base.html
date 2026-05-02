@@ -2,53 +2,164 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ML Web App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Page title set per-template via the title block -->
+    <title>{% block title %}ML Web App{% endblock %} · Used Car Prediction</title>
+
+    <!-- Google Fonts: DM Serif Display + DM Mono + DM Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+
+    <!-- Global stylesheet -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- Per-page extra head content (optional) -->
+    {% block extra_head %}{% endblock %}
 </head>
 <body>
 
-<nav>
-    <h2>Machine Learning App</h2>
+    <!-- =============================================
+         SIDEBAR — fixed left navigation
+         Active link is set per-template via the
+         nav-link "active" class on the correct <a>
+         ============================================= -->
+    <aside class="sidebar" id="sidebar">
 
-    <ul>
-        <li><a href="/">Home</a></li>
+        <div class="sidebar-header">
+            <span class="sidebar-logo">⟁</span>
+            <span class="sidebar-title">ML Project</span>
+        </div>
 
-        <li>Use Cases
-            <ul>
-                <li><a href="/use-case1">Use Case 1</a></li>
-                <li><a href="/use-case2">Use Case 2</a></li>
-                <li><a href="/use-case3">Use Case 3</a></li>
-                <li><a href="/use-case4">Use Case 4</a></li>
-            </ul>
-        </li>
+        <nav class="sidebar-nav">
 
-        <li>Supervised ML
-            <ul>
-                <li><a href="/regression">Linear Regression</a></li>
+            <!-- Home -->
+            <a href="/" class="nav-link {% block nav_home %}{% endblock %}">
+                <span class="nav-icon">⌂</span>
+                <span class="nav-label">Home</span>
+            </a>
 
-                <li>Logistic Regression
-                    <ul>
-                        <li><a href="/logistic">Concepts</a></li>
-                        <li><a href="/logistic-app">Application</a></li>
-                    </ul>
-                </li>
+            <!-- Use Cases -->
+            <a href="/use-cases" class="nav-link {% block nav_usecases %}{% endblock %}">
+                <span class="nav-icon">◈</span>
+                <span class="nav-label">Use Cases</span>
+            </a>
 
-                <li>Decision Tree
-                    <ul>
-                        <li><a href="/tree">Concepts</a></li>
-                        <li><a href="/tree-app">Application</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
+            <!-- Use Cases sub-links -->
+            <div class="nav-sub">
+                <a href="/use-case1" class="nav-link nav-link--sub {% block nav_uc1 %}{% endblock %}">
+                    <span class="nav-icon">›</span>
+                    <span class="nav-label">Price Prediction</span>
+                </a>
+                <a href="/use-case2" class="nav-link nav-link--sub {% block nav_uc2 %}{% endblock %}">
+                    <span class="nav-icon">›</span>
+                    <span class="nav-label">Sales Forecasting</span>
+                </a>
+                <a href="/use-case3" class="nav-link nav-link--sub {% block nav_uc3 %}{% endblock %}">
+                    <span class="nav-icon">›</span>
+                    <span class="nav-label">Classification</span>
+                </a>
+                <a href="/use-case4" class="nav-link nav-link--sub {% block nav_uc4 %}{% endblock %}">
+                    <span class="nav-icon">›</span>
+                    <span class="nav-label">Fraud Detection</span>
+                </a>
+            </div>
 
-        <li><a href="/metrics">Metrics</a></li>
-    </ul>
-</nav>
+            <div class="nav-divider"></div>
 
-<div class="container">
-    {% block content %}{% endblock %}
-</div>
+            <!-- Linear Regression -->
+            <a href="/regression" class="nav-link {% block nav_regression %}{% endblock %}">
+                <span class="nav-icon">∿</span>
+                <span class="nav-label">Linear Regression</span>
+            </a>
+
+            <div class="nav-divider"></div>
+
+            <!-- Logistic Regression -->
+            <a href="/logistic" class="nav-link {% block nav_logistic %}{% endblock %}">
+                <span class="nav-icon">⊕</span>
+                <span class="nav-label">Logistic — Concepts</span>
+            </a>
+            <a href="/logistic-app" class="nav-link {% block nav_logistic_app %}{% endblock %}">
+                <span class="nav-icon">⊞</span>
+                <span class="nav-label">Logistic — App</span>
+            </a>
+
+            <div class="nav-divider"></div>
+
+            <!-- Decision Tree -->
+            <a href="/tree" class="nav-link {% block nav_tree %}{% endblock %}">
+                <span class="nav-icon">⋔</span>
+                <span class="nav-label">Decision Tree — Concepts</span>
+            </a>
+            <a href="/tree-app" class="nav-link {% block nav_tree_app %}{% endblock %}">
+                <span class="nav-icon">⋕</span>
+                <span class="nav-label">Decision Tree — App</span>
+            </a>
+
+            <div class="nav-divider"></div>
+
+            <!-- Metrics -->
+            <a href="/metrics" class="nav-link {% block nav_metrics %}{% endblock %}">
+                <span class="nav-icon">◎</span>
+                <span class="nav-label">Metrics</span>
+            </a>
+
+             <div class="nav-divider"></div>
+
+            <!-- unsupervised -->
+            <a href="/unsupervised" class="nav-link {% block nav_unsupervised %}{% endblock %}">
+                <span class="nav-icon">◉</span>
+                <span class="nav-label">Unsupervised</span>
+            </a>
+
+        </nav>
+    </aside>
+
+    <!-- =============================================
+         HAMBURGER TOGGLE BUTTON
+         ============================================= -->
+    <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle navigation sidebar">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+    </button>
+
+    <!-- =============================================
+         MAIN CONTENT WRAPPER
+         Shifts right when sidebar is open
+         ============================================= -->
+    <div class="main-wrapper" id="mainWrapper">
+
+        <!-- Per-page page header (optional — templates may omit) -->
+        {% block page_header %}{% endblock %}
+
+        <!-- Main content injected here -->
+        <div class="page-content">
+            {% block content %}{% endblock %}
+        </div>
+
+        <!-- Shared footer -->
+        <footer class="site-footer">
+            <p>Academic Project · Machine Learning with Flask · Python</p>
+        </footer>
+
+    </div><!-- /.main-wrapper -->
+
+    <!-- =============================================
+         SIDEBAR TOGGLE SCRIPT
+         ============================================= -->
+    <script>
+        const toggle  = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const wrapper = document.getElementById('mainWrapper');
+
+        toggle.addEventListener('click', () => {
+            sidebar.classList.toggle('sidebar-open');
+            wrapper.classList.toggle('content-shifted');
+            toggle.classList.toggle('is-active');
+        });
+    </script>
+
+    {% block extra_scripts %}{% endblock %}
 
 </body>
 </html>

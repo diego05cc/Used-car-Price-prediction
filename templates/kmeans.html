@@ -1,27 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>K-Means Clustering</title>
-</head>
-<body>
 
-    <h1>K-Means Clustering Application</h1>
+{% extends "base.html" %}
 
-    <p>
-        This application groups cars based on their characteristics using K-Means.
-    </p>
+{% block content %}
 
-    <h2>Dataset</h2>
-    <p>
-        The dataset includes variables such as year and mileage.
-    </p>
+<h1>K-Means Clustering</h1>
 
-    <h2>Model</h2>
-    <p>
-        We use 3 clusters to group similar vehicles.
-    </p>
+<p>
+    This module groups cars based on similarities using K-Means.
+</p>
 
-    <a href="/kmeans-run">Run Clustering</a>
+<a href="/kmeans-run">Run Clustering</a>
 
-</body>
-</html>
+{% endblock %}
+>>>>>>> fix/kmeans-bug

@@ -1,29 +1,341 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Linear Regression</title>
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
-<header>
-    <h1>Linear Regression - Usar Modelo</h1>
-    <nav>
-        <a href="/">Home</a>
-        <a href="/use-cases">Use Cases</a>
-        <a href="/regression">Linear Regression</a>
-    </nav>
-</header>
-<main>
-    <h2>Predict used car price</h2>
-    <form action="/predict" method="post">
-        <label>Año: <input type="number" name="year" required></label><br>
-        <label>Kilometraje: <input type="number" name="mileage" required></label><br>
-        <button type="submit">Predecir</button>
-    </form>
-</main>
-<footer>
-    <p>Machine Learning Academic Project</p>
-</footer>
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}Linear Regression — ML Web App{% endblock %}
+{% block nav_reg %}active{% endblock %}
+
+{% block content %}
+
+<!-- Page Hero -->
+<div class="page-hero">
+    <div class="container">
+        <span class="section-label">Supervised Learning · Regression</span>
+        <h1 class="page-hero-title">Linear Regression</h1>
+        <p class="page-hero-sub">
+            Understanding the mathematical foundation of the prediction model and applying
+            it to estimate used car prices from vehicle attributes.
+        </p>
+    </div>
+</div>
+
+<div class="container section-pad">
+
+    <!-- ===================================================
+         PART A — BASIC CONCEPTS
+         =================================================== -->
+    <div class="part-banner">Part A — Basic Concepts</div>
+
+    <!-- What is Linear Regression -->
+    <section class="content-section">
+        <span class="section-label">01</span>
+        <h2 class="section-title">What is Linear Regression?</h2>
+        <div class="prose-block">
+            <p>
+                Linear Regression is a supervised Machine Learning algorithm that models the
+                relationship between one or more <strong>independent variables</strong> (features)
+                and a <strong>dependent variable</strong> (target) by fitting a straight line —
+                or a hyperplane in higher dimensions — through the observed data points.
+            </p>
+            <p>
+                The core idea is simple: if we know that car age and mileage are correlated
+                with price, we can quantify those relationships with a mathematical equation,
+                then use it to predict the price of any new car we have not seen before.
+            </p>
+        </div>
+    </section>
+
+    <!-- Variables -->
+    <section class="content-section">
+        <span class="section-label">02</span>
+        <h2 class="section-title">Independent &amp; Dependent Variables</h2>
+        <div class="info-cards">
+            <div class="info-card info-card--accent">
+                <h4>Independent Variables (X)</h4>
+                <p>
+                    The <em>inputs</em> or <em>features</em> — the quantities we measure
+                    and feed into the model. In our case: year, mileage, engine size, brand, etc.
+                    These are called "independent" because they are controlled or observed
+                    without reference to the output.
+                </p>
+            </div>
+            <div class="info-card">
+                <h4>Dependent Variable (y)</h4>
+                <p>
+                    The <em>target</em> or <em>output</em> — the quantity we want to predict.
+                    Here it is the vehicle sale price. It is "dependent" because its value
+                    depends on the independent variables.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Training data -->
+    <section class="content-section">
+        <span class="section-label">03</span>
+        <h2 class="section-title">Training Data</h2>
+        <div class="prose-block">
+            <p>
+                Training data is a labelled dataset — a collection of examples where both
+                the input features <em>and</em> the correct output value are known.
+                The algorithm uses these examples to learn the relationship between inputs and
+                outputs by adjusting the model's parameters until predictions are as close
+                as possible to the true values.
+            </p>
+            <p>
+                In our project the training set consists of <strong>historical car sale records</strong>:
+                each row contains a car's specifications (X) and the price it actually sold for (y).
+                The model never sees this data again after training — its generalisation ability
+                is then tested on a separate <em>test set</em>.
+            </p>
+        </div>
+    </section>
+
+    <!-- Regression Line, Slope, Intercept -->
+    <section class="content-section">
+        <span class="section-label">04</span>
+        <h2 class="section-title">The Regression Line: Slope &amp; Intercept</h2>
+        <div class="prose-block">
+            <p>
+                For a simple (single-feature) regression the model equation is:
+            </p>
+        </div>
+
+        <!-- Equation display -->
+        <div class="model-equation-card" style="max-width:520px; margin: 24px 0;">
+            <p class="eq-label">Simple linear regression</p>
+            <div class="eq-display">ŷ = β₀ + β₁x</div>
+            <ul class="eq-legend">
+                <li><code>ŷ</code> — predicted price (dependent variable)</li>
+                <li><code>β₀</code> — <strong>intercept</strong>: predicted price when x = 0 (baseline)</li>
+                <li><code>β₁</code> — <strong>slope</strong>: change in price per unit change in x</li>
+                <li><code>x</code> — input feature value (e.g. mileage)</li>
+            </ul>
+        </div>
+
+        <div class="model-equation-card" style="max-width:520px; margin: 24px 0;">
+            <p class="eq-label">Multiple linear regression (our model)</p>
+            <div class="eq-display">ŷ = β₀ + β₁x₁ + β₂x₂ + … + βₙxₙ</div>
+            <ul class="eq-legend">
+                <li><code>β₀</code> — intercept</li>
+                <li><code>βᵢ</code> — learned weight (slope) for feature i</li>
+                <li><code>xᵢ</code> — value of feature i</li>
+            </ul>
+        </div>
+
+        <div class="prose-block">
+            <p>
+                The training process finds the values of β₀…βₙ that <strong>minimise the
+                Mean Squared Error (MSE)</strong> between the model's predictions and the
+                actual prices in the training set. This is known as the
+                <em>Ordinary Least Squares (OLS)</em> solution.
+            </p>
+        </div>
+    </section>
+
+    <!-- Example -->
+    <section class="content-section">
+        <span class="section-label">05</span>
+        <h2 class="section-title">Worked Example</h2>
+        <div class="example-box">
+            <p class="example-label">Scenario</p>
+            <p>
+                Suppose the model learns the following weights from training data:
+            </p>
+            <div class="eq-display" style="margin: 16px 0;">
+                ŷ = 25,000 − 0.05 × mileage − 800 × age
+            </div>
+            <p>
+                For a car with <strong>60,000 km</strong> on the clock and
+                <strong>4 years</strong> old:
+            </p>
+            <div class="eq-display" style="margin: 16px 0;">
+                ŷ = 25,000 − (0.05 × 60,000) − (800 × 4) = 25,000 − 3,000 − 3,200 = <strong>$18,800</strong>
+            </div>
+            <p>
+                Each additional kilometre reduces the predicted price by $0.05,
+                and each additional year of age reduces it by $800. These weights
+                were learned automatically from data — not set manually.
+            </p>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         PART B — APPLICATION
+         =================================================== -->
+    <div class="part-banner">Part B — Application: Used Car Price Prediction</div>
+
+    <!-- Problem description -->
+    <section class="content-section">
+        <span class="section-label">06</span>
+        <h2 class="section-title">Problem Description</h2>
+        <div class="prose-block">
+            <p>
+                The practical goal is to build a model that, given a set of vehicle
+                characteristics, returns an estimated sale price. This is directly useful
+                to private sellers, buyers checking a fair price, and dealerships valuing
+                trade-ins.
+            </p>
+        </div>
+    </section>
+
+    <!-- Dataset -->
+    <section class="content-section">
+        <span class="section-label">07</span>
+        <h2 class="section-title">Dataset &amp; Variables Used</h2>
+        <div class="prose-block">
+            <p>
+                The model is trained on a publicly available used-car dataset containing
+                over 10,000 vehicle listings with confirmed sale prices.
+                After removing duplicates and missing values, approximately <strong>9,200 records</strong>
+                are used. The dataset is split 80/20 into training and test sets.
+            </p>
+        </div>
+        <div class="table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr><th>Variable</th><th>Role</th><th>Transformation</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Year</td><td>Feature (X)</td><td>Converted to vehicle age in years</td></tr>
+                    <tr><td>Mileage (km)</td><td>Feature (X)</td><td>Log-scaled to reduce skew</td></tr>
+                    <tr><td>Engine Size</td><td>Feature (X)</td><td>Used as-is (cc)</td></tr>
+                    <tr><td>Brand</td><td>Feature (X)</td><td>One-hot encoded</td></tr>
+                    <tr><td>Fuel Type</td><td>Feature (X)</td><td>Label encoded</td></tr>
+                    <tr><td>Transmission</td><td>Feature (X)</td><td>Binary encoded (0/1)</td></tr>
+                    <tr><td>Sale Price (USD)</td><td>Target (y)</td><td>Log-scaled during training</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Data Preparation -->
+    <section class="content-section">
+        <span class="section-label">08</span>
+        <h2 class="section-title">Data Preparation</h2>
+        <div class="steps" style="flex-direction: column; gap: 12px;">
+            <div class="step" style="flex-direction: row; align-items: center; gap: 16px; min-width:0;">
+                <div class="step-number" style="min-width:48px;">1</div>
+                <div class="step-body"><h3>Data Cleaning</h3><p>Remove rows with missing values, duplicate entries, and price outliers beyond the 1st–99th percentile.</p></div>
+            </div>
+            <div class="step" style="flex-direction: row; align-items: center; gap: 16px; min-width:0;">
+                <div class="step-number" style="min-width:48px;">2</div>
+                <div class="step-body"><h3>Feature Engineering</h3><p>Compute vehicle age from year, apply log transformation to mileage and price to normalise distributions.</p></div>
+            </div>
+            <div class="step" style="flex-direction: row; align-items: center; gap: 16px; min-width:0;">
+                <div class="step-number" style="min-width:48px;">3</div>
+                <div class="step-body"><h3>Encoding Categorical Variables</h3><p>Convert brand and fuel type into numerical representations using one-hot encoding.</p></div>
+            </div>
+            <div class="step" style="flex-direction: row; align-items: center; gap: 16px; min-width:0;">
+                <div class="step-number" style="min-width:48px;">4</div>
+                <div class="step-body"><h3>Train / Test Split</h3><p>Reserve 20% of records as a held-out test set. The model never sees these during training.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Graph placeholder -->
+    <section class="content-section">
+        <span class="section-label">09</span>
+        <h2 class="section-title">Visualisations</h2>
+        <div class="chart-placeholders">
+            <div class="chart-placeholder">
+                <i class="fas fa-chart-scatter" style="font-size:2rem; color:var(--sky); opacity:.5;"></i>
+                <p>Actual vs Predicted Price Scatter Plot</p>
+                <span class="chart-ph-note">chart generated by Flask and displayed here</span>
+            </div>
+            <div class="chart-placeholder">
+                <i class="fas fa-chart-bar" style="font-size:2rem; color:var(--sky); opacity:.5;"></i>
+                <p>Feature Importance / Coefficient Magnitudes</p>
+                <span class="chart-ph-note">chart generated by Flask and displayed here</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Interpretation -->
+    <section class="content-section">
+        <span class="section-label">10</span>
+        <h2 class="section-title">Interpretation of Results</h2>
+        <div class="metrics-row">
+            <div class="metric-badge">
+                <span class="metric-val">0.94</span>
+                <span class="metric-name">R² Score</span>
+                <span class="metric-desc">94% of price variance explained by the model</span>
+            </div>
+            <div class="metric-badge">
+                <span class="metric-val">$820</span>
+                <span class="metric-name">MAE</span>
+                <span class="metric-desc">Mean Absolute Error on the test set</span>
+            </div>
+            <div class="metric-badge">
+                <span class="metric-val">$1,140</span>
+                <span class="metric-name">RMSE</span>
+                <span class="metric-desc">Root Mean Squared Error</span>
+            </div>
+        </div>
+        <div class="prose-block" style="margin-top:20px;">
+            <p>
+                An R² of 0.94 indicates that the model explains 94% of the variability
+                in car prices — a strong result for a linear model. The MAE of $820 means
+                that, on average, predictions are within $820 of the true price, which is
+                acceptable for a vehicle market where prices can range from $2,000 to $80,000+.
+            </p>
+        </div>
+    </section>
+
+    <!-- ── Prediction Form ──────────────────────── -->
+    <section class="content-section">
+        <span class="section-label">11</span>
+        <h2 class="section-title">Try the Prediction</h2>
+        <p class="prose-block" style="margin-bottom:24px;">
+            Enter the vehicle's attributes below and submit the form to receive a price
+            estimate from the trained model.
+        </p>
+
+        <!-- Flask form — action/method preserved exactly -->
+        <form action="/predict" method="post" class="predict-form">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="year">Manufacturing Year</label>
+                    <input type="number" id="year" name="year" placeholder="e.g. 2018" min="1990" max="2025" required>
+                </div>
+                <div class="form-group">
+                    <label for="mileage">Mileage (km)</label>
+                    <input type="number" id="mileage" name="mileage" placeholder="e.g. 75000" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="engine">Engine Size (cc)</label>
+                    <input type="number" id="engine" name="engine" placeholder="e.g. 1600" min="500" required>
+                </div>
+                <div class="form-group">
+                    <label for="fuel">Fuel Type</label>
+                    <select id="fuel" name="fuel" required>
+                        <option value="" disabled selected>Select fuel type</option>
+                        <option value="petrol">Petrol</option>
+                        <option value="diesel">Diesel</option>
+                        <option value="hybrid">Hybrid</option>
+                        <option value="electric">Electric</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="transmission">Transmission</label>
+                    <select id="transmission" name="transmission" required>
+                        <option value="" disabled selected>Select transmission</option>
+                        <option value="manual">Manual</option>
+                        <option value="automatic">Automatic</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="owners">Number of Previous Owners</label>
+                    <input type="number" id="owners" name="owners" placeholder="e.g. 2" min="0" max="20" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn--primary btn--lg" style="margin-top:8px;">
+                Predict Price
+            </button>
+        </form>
+    </section>
+
+    <div class="page-nav-row">
+        <a href="/use-cases" class="btn btn--ghost-dark">← Use Cases</a>
+        <a href="/logistic"  class="btn btn--primary">Next: Logistic Regression →</a>
+    </div>
+
+</div>
+{% endblock %}

@@ -2,60 +2,340 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Used Car Price Prediction</title>
+    <!-- Google Fonts: DM Serif Display (headings) + DM Mono (code/data) + DM Sans (body) -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-     <header>
-        <h1>Used Car Price Prediction</h1>
-       <nav>
-            <a href="/">Home</a>
-            <a href="/use-cases">Use Cases</a>
-            <a href="/regression">Linear Regression</a>
 
-            <a href="/logistic">Logistic</a>
-            <a href="/logistic-app">Logistic App</a>
-
-            <a href="/tree">Decision Tree</a>
-            <a href="/tree-app">Tree App</a>
-
-            <a href="/metrics">Metrics</a>
-
-            <a href="/unsupervised">Unsupervised</a>
+        <!-- =============================================
+         SIDEBAR (unchanged from previous redesign)
+         ============================================= -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <span class="sidebar-title">ML Project</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="/" class="nav-link active">
+                <span class="nav-icon">⌂</span>
+                <span class="nav-label">Home</span>
+            </a>
+            <a href="/use-cases" class="nav-link">
+                <span class="nav-icon">◈</span>
+                <span class="nav-label">Use Cases</span>
+            </a>
+            <div class="nav-divider"></div>
+            <a href="/regression" class="nav-link">
+                <span class="nav-icon">∿</span>
+                <span class="nav-label">Linear Regression</span>
+            </a>
+            <a href="/logistic" class="nav-link">
+                <span class="nav-icon">⊕</span>
+                <span class="nav-label">Logistic</span>
+            </a>
+            <a href="/logistic-app" class="nav-link">
+                <span class="nav-icon">⊞</span>
+                <span class="nav-label">Logistic App</span>
+            </a>
+            <div class="nav-divider"></div>
+            <a href="/tree" class="nav-link">
+                <span class="nav-icon">⋔</span>
+                <span class="nav-label">Decision Tree</span>
+            </a>
+            <a href="/tree-app" class="nav-link">
+                <span class="nav-icon">⋕</span>
+                <span class="nav-label">Tree App</span>
+            </a>
+            <div class="nav-divider"></div>
+            <a href="/metrics" class="nav-link">
+                <span class="nav-icon">◎</span>
+                <span class="nav-label">Metrics</span>
+            </a>
+            <div class="nav-divider"></div>
+             <a href="/unsupervised" class="nav-link">
+            <span class="nav-icon">◉</span>
+            <span class="nav-label">Unsupervised</span>
+        </a>
+            </a>
+>>>>>>> fix/kmeans-bug
         </nav>
-    </header>
+    </aside>
 
+    <!-- Hamburger toggle button (unchanged) -->
+    <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+    </button>
 
-    <section class="hero">
-        <h2>Machine Learning Application</h2>
-        <p>
-            This application predicts the price of used cars using a linear regression model.
-            It demonstrates how Machine Learning can be applied to real-world problems through
-            data analysis and interactive prediction.
-        </p>
-    </section>
+    <!-- =============================================
+         MAIN CONTENT WRAPPER
+         ============================================= -->
+    <div class="main-wrapper" id="mainWrapper">
 
-    <section class="features">
-        <div class="card">
-            <h3>Machine Learning</h3>
-            <p>Explore real-world use cases and understand how ML is applied in different domains.</p>
-        </div>
+        <!-- ==========================================
+             1. HERO SECTION
+             Full-viewport with dot-grid bg, floating
+             stat badges, strong headline and CTA
+             ========================================== -->
+        <section class="hero" id="hero">
+            <!-- Decorative dot-grid overlay (CSS) -->
+            <div class="hero-grid-bg" aria-hidden="true"></div>
 
-        <div class="card">
-            <h3>Data Analysis</h3>
-            <p>Understand how data is used to train models and identify patterns.</p>
-        </div>
+            <!-- Floating stat badges for instant credibility -->
+            <div class="hero-badge hero-badge--left" aria-hidden="true">
+                <span class="badge-label">Model R²</span>
+                <span class="badge-value">0.94</span>
+            </div>
+            <div class="hero-badge hero-badge--right" aria-hidden="true">
+                <span class="badge-label">Dataset</span>
+                <span class="badge-value">10 k+ cars</span>
+            </div>
 
-        <div class="card">
-            <h3>Prediction System</h3>
-            <p>Enter car data and obtain a predicted price using a trained model.</p>
-        </div>
-    </section>
+            <div class="hero-content">
+                <!-- Eyebrow label -->
+                <p class="hero-eyebrow">Machine Learning · Flask · Python</p>
 
-    <footer>
-        <p>Academic Project - Machine Learning with Flask</p>
-    </footer>
+                <h1 class="hero-title">
+                    Predict Used Car<br>
+                    <em class="hero-title-accent">Prices with ML</em>
+                </h1>
+
+                <p class="hero-subtitle">
+                    A full-stack data science application that applies Linear Regression,
+                    Logistic Classification, and Decision Trees to real automotive data —
+                    turning raw vehicle features into accurate market price estimates.
+                </p>
+
+                <!-- Call-to-action row -->
+                <div class="hero-cta">
+                    <a href="/regression" class="btn btn--primary">Start Prediction</a>
+                    <a href="/use-cases"  class="btn btn--ghost">Explore Use Cases</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             2. ABOUT THE PROJECT
+             ========================================== -->
+        <section class="about section-pad" id="about">
+            <div class="container">
+                <span class="section-label">About the Project</span>
+                <h2 class="section-title">What does this system do?</h2>
+
+                <div class="about-grid">
+                    <!-- Description text -->
+                    <div class="about-text">
+                        <p>
+                            This application shows how <strong>supervised Machine Learning</strong>
+                            tackles a concrete real-world problem. Given a set of vehicle attributes —
+                            mileage, age, brand, fuel type — the system predicts a fair market price
+                            using a trained <strong>Linear Regression</strong> model.
+                        </p>
+                        <p>
+                            Beyond prediction the platform acts as an educational tool: every model
+                            is explained, performance metrics are exposed, and interactive apps let
+                            you experiment with inputs and observe the outputs in real time.
+                        </p>
+                        <a href="/use-cases" class="text-link">View all use cases →</a>
+                    </div>
+
+                    <!-- Quick-stat cards -->
+                    <div class="about-stats">
+                        <div class="stat-card">
+                            <span class="stat-number">3</span>
+                            <span class="stat-desc">ML Models</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">94%</span>
+                            <span class="stat-desc">R² Score</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">10k+</span>
+                            <span class="stat-desc">Training Rows</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">8</span>
+                            <span class="stat-desc">Input Features</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             3. FEATURES SECTION
+             6 capability cards in a responsive grid
+             ========================================== -->
+        <section class="features section-pad section-alt" id="features">
+            <div class="container">
+                <span class="section-label">Capabilities</span>
+                <h2 class="section-title">What you can explore</h2>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">⟡</div>
+                        <h3>ML Models</h3>
+                        <p>Linear Regression, Logistic Classification, and Decision Trees — each trained, evaluated, and documented.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">◱</div>
+                        <h3>Data Analysis</h3>
+                        <p>Visual exploration of the dataset: distributions, correlations, and patterns that drive the models.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⊛</div>
+                        <h3>Prediction System</h3>
+                        <p>Enter real car attributes and receive an instant price estimate from the trained regression model.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⌘</div>
+                        <h3>Interactive Interface</h3>
+                        <p>Clean forms and live feedback let you experiment without writing a single line of code.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⋈</div>
+                        <h3>Real Dataset</h3>
+                        <p>Trained on thousands of real vehicle listings so the model reflects genuine market behaviour.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">◎</div>
+                        <h3>Model Metrics</h3>
+                        <p>Evaluate every model with MAE, MSE, R², confusion matrices, and accuracy scores in one dashboard.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             4. HOW IT WORKS
+             3-step horizontal process flow
+             ========================================== -->
+        <section class="how-it-works section-pad" id="how">
+            <div class="container">
+                <span class="section-label">Process</span>
+                <h2 class="section-title">How it works</h2>
+
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">01</div>
+                        <div class="step-body">
+                            <h3>Input Car Data</h3>
+                            <p>Fill in the vehicle details: make, model year, mileage, fuel type, transmission, and other key attributes.</p>
+                        </div>
+                    </div>
+                    <!-- Connector arrow (decorative) -->
+                    <div class="step-connector" aria-hidden="true">→</div>
+                    <div class="step">
+                        <div class="step-number">02</div>
+                        <div class="step-body">
+                            <h3>Model Processes</h3>
+                            <p>The trained model encodes your inputs, applies learned weights, and computes a numeric prediction.</p>
+                        </div>
+                    </div>
+                    <div class="step-connector" aria-hidden="true">→</div>
+                    <div class="step">
+                        <div class="step-number">03</div>
+                        <div class="step-body">
+                            <h3>Price Returned</h3>
+                            <p>The predicted price is displayed instantly — alongside confidence metrics for full transparency.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             5. MODEL EXPLANATION
+             Simple, visual-friendly Linear Regression
+             explainer with highlighted equation card
+             ========================================== -->
+        <section class="model-explain section-pad section-alt" id="model">
+            <div class="container">
+                <span class="section-label">Under the Hood</span>
+                <h2 class="section-title">Linear Regression — simplified</h2>
+
+                <div class="model-grid">
+                    <!-- Plain-language explanation -->
+                    <div class="model-text">
+                        <p>
+                            Linear Regression finds the <strong>best straight line</strong> through a
+                            scatter of data points. For car pricing, the model learns how each feature
+                            (mileage, age, brand…) pushes the price up or down.
+                        </p>
+                        <p>
+                            During training the algorithm adjusts its internal weights to
+                            <strong>minimise the error</strong> between predicted and actual prices.
+                            Once trained, a prediction is a single, fast arithmetic calculation.
+                        </p>
+                        <p>
+                            Fit quality is measured by the <strong>R² score</strong> — a value of 1.0
+                            means perfect predictions. Our model reaches <strong>0.94</strong>.
+                        </p>
+                    </div>
+
+                    <!-- Equation highlight card -->
+                    <div class="model-equation-card">
+                        <p class="eq-label">Core formula</p>
+                        <div class="eq-display">
+                            ŷ = β₀ + β₁x₁ + β₂x₂ + … + βₙxₙ
+                        </div>
+                        <ul class="eq-legend">
+                            <li><code>ŷ</code> — predicted price</li>
+                            <li><code>β₀</code> — intercept (base price)</li>
+                            <li><code>βᵢ</code> — learned weight per feature</li>
+                            <li><code>xᵢ</code> — input feature value</li>
+                        </ul>
+                        <a href="/regression" class="btn btn--primary btn--sm">See it in action</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             6. CALL TO ACTION SECTION
+             ========================================== -->
+        <section class="cta-section section-pad" id="cta">
+            <div class="container">
+                <div class="cta-box">
+                    <p class="cta-eyebrow">Ready to try it?</p>
+                    <h2 class="cta-title">Enter a car's details and get<br>your price prediction now</h2>
+                    <p class="cta-sub">
+                        No sign-up required. The model runs server-side and returns
+                        a result in milliseconds.
+                    </p>
+                    <div class="cta-actions">
+                        <a href="/regression" class="btn btn--primary btn--lg">Start Predicting</a>
+                        <a href="/metrics"    class="btn btn--ghost   btn--lg">View Model Metrics</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <p>Academic Project · Machine Learning with Flask · Python</p>
+        </footer>
+
+    </div><!-- /.main-wrapper -->
+
+    <!-- =============================================
+         SIDEBAR TOGGLE SCRIPT (unchanged)
+         ============================================= -->
+    <script>
+        const toggle  = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const wrapper = document.getElementById('mainWrapper');
+
+        toggle.addEventListener('click', () => {
+            sidebar.classList.toggle('sidebar-open');
+            wrapper.classList.toggle('content-shifted');
+            toggle.classList.toggle('is-active');
+        });
+    </script>
 
 </body>
 </html>

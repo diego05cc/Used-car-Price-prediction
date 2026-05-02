@@ -1,15 +1,119 @@
 {% extends "base.html" %}
 
+{% block title %}Logistic Regression — Concepts{% endblock %}
+{% block nav_logistic %}active{% endblock %}
+
+{% block page_header %}
+<div class="inner-hero">
+    <div class="container">
+        <span class="section-label">Supervised Learning · Classification</span>
+        <h1 class="inner-hero-title">Logistic Regression</h1>
+        <p class="inner-hero-sub">
+            Concepts, mathematical foundation, and application to
+            binary vehicle classification.
+        </p>
+    </div>
+</div>
+{% endblock %}
+
 {% block content %}
-<h2>Logistic Regression - Concepts</h2>
+<div class="container section-pad">
 
-<p>Logistic regression is used for classification problems.</p>
+    <!-- ── 1. WHAT IS LOGISTIC REGRESSION ───────────── -->
+    <div class="content-section">
+        <span class="section-label">Definition</span>
+        <h2 class="section-title">What is Logistic Regression?</h2>
+        <p class="content-text">
+            Despite its name, <strong>Logistic Regression</strong> is a classification
+            algorithm, not a regression one. It estimates the <em>probability</em> that
+            a given input belongs to a particular class. If that probability exceeds a
+            decision threshold (typically 0.5), the observation is assigned to the
+            positive class; otherwise, to the negative class.
+        </p>
+        <p class="content-text">
+            Unlike Linear Regression — which produces unbounded continuous outputs —
+            Logistic Regression applies the <strong>sigmoid (logistic) function</strong>
+            to squash the linear combination of inputs into the range [0, 1], making the
+            output interpretable as a probability.
+        </p>
+    </div>
 
-<ul>
-    <li>Binary classification</li>
-    <li>Probability estimation</li>
-    <li>Decision boundary</li>
-</ul>
+    <!-- Concepts cards -->
+    <div class="concept-grid">
+        <div class="concept-card">
+            <div class="concept-num">1</div>
+            <h4>Regression vs. Classification</h4>
+            <p>Linear Regression predicts a <em>continuous value</em> (e.g., price).
+            Logistic Regression predicts a <em>discrete class label</em> (e.g.,
+            expensive / not expensive) by modelling the probability of class membership.</p>
+        </div>
+        <div class="concept-card">
+            <div class="concept-num">2</div>
+            <h4>Binary Classification</h4>
+            <p>The simplest form of Logistic Regression handles exactly two classes.
+            In our context: <em>Class 1</em> = "Expensive car" (price above threshold),
+            <em>Class 0</em> = "Budget car" (price at or below threshold).</p>
+        </div>
+        <div class="concept-card">
+            <div class="concept-num">3</div>
+            <h4>Probability Estimation</h4>
+            <p>The model outputs P(y = 1 | x) — the probability that the input x belongs
+            to Class 1. This probability is calibrated and meaningful: a score of 0.82
+            means the model is 82% confident the car is expensive.</p>
+        </div>
+        <div class="concept-card">
+            <div class="concept-num">4</div>
+            <h4>The Sigmoid Function</h4>
+            <p>σ(z) = 1 / (1 + e⁻ᶻ) maps any real number z to (0, 1). Here
+            z = β₀ + β₁x₁ + … is the linear combination of inputs — the same
+            as in Linear Regression, but passed through the sigmoid transformation.</p>
+        </div>
+        <div class="concept-card">
+            <div class="concept-num">5</div>
+            <h4>Decision Boundary</h4>
+            <p>The threshold applied to the probability output to assign a class label.
+            At the default threshold of 0.5, if P(y=1|x) ≥ 0.5 the model predicts
+            Class 1. The threshold can be adjusted to favour precision or recall.</p>
+        </div>
+        <div class="concept-card">
+            <div class="concept-num">6</div>
+            <h4>Log-Loss (Cost Function)</h4>
+            <p>The model is trained by minimising <em>Binary Cross-Entropy Loss</em>,
+            which penalises confident wrong predictions heavily. This is optimised via
+            gradient descent during the training phase.</p>
+        </div>
+    </div>
 
-<p>Example: Predict if a car is expensive or not.</p>
+    <!-- Equation card -->
+    <div class="model-equation-card" style="margin: 32px 0;">
+        <p class="eq-label">Logistic Regression probability formula</p>
+        <div class="eq-display">P(y=1 | x) = σ(β₀ + β₁x₁ + … + βₙxₙ) = 1 / (1 + e⁻ᶻ)</div>
+        <ul class="eq-legend">
+            <li><code>P(y=1|x)</code> — probability the input belongs to Class 1</li>
+            <li><code>σ(·)</code> — sigmoid activation function</li>
+            <li><code>z</code> — linear combination of inputs and weights</li>
+            <li><code>βᵢ</code> — learned coefficients</li>
+        </ul>
+    </div>
+
+    <!-- ── EXAMPLE ───────────────────────────────────── -->
+    <div class="content-section">
+        <span class="section-label">Worked Example</span>
+        <h2 class="section-title">Classifying Cars as Expensive or Not</h2>
+        <p class="content-text">
+            We define <em>expensive</em> as any vehicle with a market price above $20,000.
+            The Logistic Regression model is trained on features (year, mileage, engine size,
+            brand, fuel type) with a binary label: 1 = expensive, 0 = budget.
+        </p>
+        <p class="content-text">
+            After training, a 2019 SUV with low mileage might produce z = 2.1, giving
+            σ(2.1) ≈ 0.89. Since 0.89 &gt; 0.5, the model classifies this vehicle as
+            <strong>expensive</strong> with 89% confidence.
+        </p>
+        <div class="cta-inline">
+            <a href="/logistic-app" class="btn btn--primary">Try the Application</a>
+        </div>
+    </div>
+
+</div>
 {% endblock %}
